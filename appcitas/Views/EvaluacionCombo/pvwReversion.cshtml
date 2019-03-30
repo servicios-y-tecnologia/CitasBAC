@@ -1,0 +1,176 @@
+﻿@model appcitas.Dtos.ReversionDto
+
+
+@{
+    ViewBag.Title = "pvwReversion";
+}
+<form id="ReversionForm">
+    <h2>Reversión</h2>
+
+
+
+    <div class="panel panel-default" >
+        <div class="panel-body">
+
+
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    <div class="row ">
+                        <div class="col-md-1">
+                            <strong>#1</strong>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TipoReversionId_1, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(model => model.TipoReversionId_1, new SelectList(ViewBag.TiposDeReversion, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un tipo de reversion", new { @class = "form-control", @onchange = "OnTipoReversion_1Change(event)" })
+                                @Html.ValidationMessageFor(model => model.TipoReversionId_1, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.TipoReversion_1, new { htmlAttributes = new { @class = "hidden" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Monto_1, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Monto_1, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Monto_1, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FechaCargo_1, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.FechaCargo_1, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.FechaCargo_1, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <br />
+                    <div class="row">
+                        <div class="col-md-1">
+                            <strong>#2</strong>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TipoReversionId_2, htmlAttributes: new { @class = "control-label" })
+                                <input class="hidden" id="TipoReversionId_2" />
+                                <input class="form-control" readonly id="TipoReversion_2" value="@Model.TipoReversionId_2"  />
+                                @Html.ValidationMessageFor(model => model.TipoReversionId_2, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Monto_2, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Monto_2, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Monto_2, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FechaCargo_2, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.FechaCargo_2, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.FechaCargo_2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <br />
+                    <div class="row">
+                        <div class="col-md-1">
+                            <strong>#3</strong>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TipoReversionId_3, htmlAttributes: new { @class = "control-label" })
+                                <input class="hidden" id="TipoReversionId_3" />
+                                <input class="form-control" readonly id="TipoReversion_3" value="@Model.TipoReversionId_3" />
+                                @Html.ValidationMessageFor(model => model.TipoReversionId_3, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Monto_3, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Monto_3, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Monto_3, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FechaCargo_3, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.FechaCargo_3, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.FechaCargo_3, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <br />
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <strong>#4</strong>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TipoReversionId_4, htmlAttributes: new { @class = "control-label" })
+                                <input class="hidden" id="TipoReversionId_4" />
+                                <input class="form-control" readonly id="TipoReversion_4" value="@Model.TipoReversionId_4"/>
+                                @Html.ValidationMessageFor(model => model.TipoReversionId_4, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Monto_4, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Monto_4, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Monto_4, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FechaCargo_4, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.FechaCargo_4, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.FechaCargo_4, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <br />
+                    <div class="row">
+                        <div class="col-md-1">
+                            <strong>#5</strong>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TipoReversionId_5, htmlAttributes: new { @class = "control-label" })
+                                <input class="hidden" id="TipoReversionId_5" />
+                                <input class="form-control" readonly id="TipoReversion_5" value="@Model.TipoReversionId_5" />
+                                @Html.ValidationMessageFor(model => model.TipoReversionId_5, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Monto_5, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Monto_5, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Monto_5, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FechaCargo_5, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.FechaCargo_5, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.FechaCargo_5, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <br />
+                    <div class="row">
+                        <div class="col-md-1">
+                            <strong>#6</strong>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TipoReversionId_6, htmlAttributes: new { @class = "control-label" })
+                                <input class="hidden" id="TipoReversionId_6" />
+                                <input class="form-control" readonly id="TipoReversion_6" value="@Model.TipoReversionId_6"  />
+                                @Html.ValidationMessageFor(model => model.TipoReversionId_6, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Monto_6, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Monto_6, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Monto_6, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FechaCargo_6, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.FechaCargo_6, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.FechaCargo_6, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+        </div>
+    </div>
+</form>

@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard_Ofrecimientos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    td.details-control {
+        background: url('../../imgs/add.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+    tr.shown td.details-control {
+        background: url('../../imgs/minus.png') no-repeat center center;
+    }
+
+    table.center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box bac">
+            <div class="box-header">
+                <h3 class="titulo">Dashboard de Ofrecimientos</h3>
+            </div>
+            <div class="box-body">
+                <div class="row nomargin">
+                    <div class="row nomargin">
+                        <div class="form-group input-group-sm date col-md-3">
+                            <label for="txt_fecha1">Fecha Inicio</label>
+                            <div class='input-group input-group-sm date' id="fecha1">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-calendar"></span>
+                                </span>
+                                <input type='text' class="form-control limpiar requerido" data-requerido="true" id="txt_fecha1" readonly="" attr-message="Es un filtro requerido!">
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="form-group input-group-sm date col-md-3">
+                            <label for="txt_fecha2">Fecha Final</label>
+                            <div class='input-group input-group-sm date' id="fecha2">
+                                <span class="input-group-addon">
+                                    <span class="fa fa-calendar"></span>
+                                </span>
+                                <input type='text' class="form-control limpiar requerido" data-requerido="true" id="txt_fecha2" readonly="" attr-message="Es un filtro requerido!">
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="IdCliente" class="control-label">Identificación de Cliente</label>
+                            @Html.DropDownList("IdCliente", new SelectList(ViewBag.IdentificacionesCliente, "IdTipoCliente", "DescripcionTipoCliente"), "seleccione una identificacion", new { @class = "form-control", @required = "required" })
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="TipoOfrecimiento" class="control-label">Tipo de Ofrecimiento</label>
+                            @Html.DropDownList("TipoOfrecimiento", new SelectList(ViewBag.TipoOfrecimientos, "IdTipoOfrecimiento", "DescTipoOfrecimiento"), "seleccion un tipo de ofrecimiento", new { @class = "form-control", @required = "required" })
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="Segmentos" class="control-label">Segmentos</label>
+                            @Html.DropDownList("Segmentos", new SelectList(ViewBag.Segmentos, "ConfigItemID", "ConfigItemAbreviatura"), "seleccione un segmento", new { @class = "form-control", @required = "required" })
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="Canales" class="control-label">Canales</label>
+                            @Html.DropDownList("Canales", new SelectList(ViewBag.Canales, "SucursalId", "SucursalNombre"), "seleccione una sucursal", new { @class = "form-control", @required = "required" })
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="MotorUtilizado" class="control-label">Herramienta</label>
+                            @Html.DropDownList("MotorUtilizado", new SelectList(ViewBag.MotorUtilizado, "MotorId", "MotorDescripcion"), "seleccione una herramienta", new { @class = "form-control requerido", @required = "required" })
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+
+                    <div class="row nomargin" style="margin-bottom: 25px !important; margin-top: 10px !important;">
+                        <div class="col-xs-12 text-center">
+                            <button type="button" onclick="GenerarReporte(event)" class="btn btn-md btn-primary btn-block">Generar reporte</button>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="row bac-container-table-panel">
+                        <div class="col-xs-12 bac-table-panel">
+                            <table class="table list-table table-bordered" id="tableMotorDashboard">
+                                <thead>
+                                    <tr>
+                                        <th style="width:50px"></th>
+                                        <th>Numero Cuenta</th>
+                                        <th>Fecha</th>
+                                        <th>Tipo de Ofrecimiento</th>
+                                        <th>Monto</th>
+                                        <th>Marca</th>
+                                        <th>Familia</th>
+                                        <th>Segmento</th>
+                                        <th>Resultado de Ofrecimiento</th>
+                                        <th>Resultado Aceptado</th>
+                                        <th>Canal de Registro</th>
+                                        <th>Identificacion de Cliente</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/Scripts/js/dashboard_ofrecimiento.js")

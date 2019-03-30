@@ -1,0 +1,210 @@
+﻿@model appcitas.Dtos.ComboDto
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Evaluacion de Combos - Motor de Retenciones</h3>
+        <div class="row nomargin">
+        </div>
+    </div>
+    <div class="box-body">
+        <form id="FormCombos">
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.NumeroTarjeta, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                @Html.EditorFor(model => model.NumeroTarjeta, new { htmlAttributes = new { @class = "form-control" } })
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" onclick="BuscarPorTarjeta(event)"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.NumeroCuenta, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.NumeroCuenta, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.NumeroCuenta, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.CIF, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CIF, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.CIF, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            @Html.LabelFor(model => model.Familia, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Familia, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Familia, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @Html.LabelFor(model => model.Segmento, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Segmento, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Segmento, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.EditorFor(model => model.SegmentoId, new { htmlAttributes = new { @class = "hidden" } })
+                        <div class="col-md-4 form-group">
+                            @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Marca, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.EditorFor(model => model.MarcaId, new { htmlAttributes = new { @class = "hidden" } })
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.ComboOpId, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.ComboOpId, new SelectList(ViewBag.Combos, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un combo", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ComboOpId, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.ComboName, new { htmlAttributes = new { @class = "form-control hidden" } })
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.SaldoActual, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.SaldoActual, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.SaldoActual, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.Limite, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Limite, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Limite, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.PrimerCargoId, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.PrimerCargoId, new SelectList(ViewBag.Cargos, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un cargo", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PrimerCargoId, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.PrimerCargoName, new { htmlAttributes = new { @class = "form-control hidden" } })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.SegundoCargoId, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.SegundoCargoId, new SelectList(ViewBag.Cargos, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un cargo", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.SegundoCargoId, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.SegundoCargoName, new { htmlAttributes = new { @class = "form-control hidden" } })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.MontoPrimerCargo, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.MontoPrimerCargo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MontoPrimerCargo, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.MontoSegundoCargo, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.MontoSegundoCargo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MontoSegundoCargo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.FechaPrimerCargo, htmlAttributes: new { @class = "control-label" })
+                            <div class='input-group date' id='FechaPrimerCargo'>
+                                <input type='text' class="form-control" id="txt_FechaPrimerCargo" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FechaPrimerCargo, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.FechaSegundoCargo, htmlAttributes: new { @class = "control-label" })
+                            <div class='input-group date' id='FechaSegundoCargo'>
+                                <input type='text' class="form-control" id="txt_FechaSegundoCargo" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FechaSegundoCargo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-primary btn-block" type="button" onclick="">Evaluar Variables</button>
+                </div>
+            </div>
+            <br />
+        </form>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default miPanel">
+                    <div class="panel-heading">
+                        <strong>Resultados de Variables</strong>
+                    </div>
+                    <div class="panel-body">
+                        <table id="resultadosDeVariables" class="list-table table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="hidden">Codigo</th>
+                                    <th class="hidden">ReclamoId</th>
+                                    <th class="hidden">ItemId</th>
+                                    <th>Item</th>
+                                    <th class="hidden">VariableDeItemId</th>
+                                    <th>Variable</th>
+                                    <th>Valor </th>
+                                    <th>Condicion</th>
+                                    <th>Valor Comparativo</th>
+                                    <th class="hidden">ResultadoBooleano</th>
+                                    <th>Resultado</th>
+                                </tr>
+                            </thead>
+                            <tbody class="dataTables_fontTbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>Resultados de Evaluacion</strong>
+                    </div>
+                    <div class="panel-body miPanelResultado">
+                        <div id="resultadosContainer">
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Observacion, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Observacion, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-primary" type="button" onclick="GuardarAnualidad(event)"> Guardar Evaluacion</button>
+                        <input type="reset" class="btn btn-default" value="Resetear Formulario" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/js/combos.js")
+}

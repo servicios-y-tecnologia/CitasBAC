@@ -1,0 +1,41 @@
+﻿@model appcitas.Controllers.ResultadoVM
+
+@{
+    ViewBag.Resultados = Model.Resultados;
+}
+
+@if (ViewBag.Buro)
+{
+    <div class="alert alert-danger">
+        <strong>Este cliente presenta estado de Buro Rojo, referir al departamento de Recuperacion de Mora/Cobros</strong>
+    </div>
+}
+else
+{
+    if (Model.Resultados != null && Model.Resultados.Count() > 0)
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.Resultados, htmlAttributes: new { @class = "label-control" })
+            @Html.DropDownListFor(model => model.Resultados, new SelectList(Model.Resultados, "ItemDeReclamoId", "ItemDeReclamoDescripcion"), "seleccione un resultado", new { @class = "form-control", @onChange = "ResultadosCbxChange(event)" })
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <strong>Este cliente no aplica a ningun beneficio</strong>
+        </div>
+    }
+}
+
+        <div class="form-group">
+            @{ 
+                if (ViewBag.EsComboAnualidad)
+                {
+            <label for="resultadoAceptadoAnualidad" class="control-label">Resultado Aceptado por el Cliente? <input type="checkbox" onchange="AceptadoComboChange(event)" class="checkbox" id="resultadoAceptadoAnualidad" required /></label>
+                }
+                else
+                {
+            <label for="resultadoAceptado" class="control-label">Resultado Aceptado por el Cliente? <input type="checkbox" class="checkbox" id="resultadoAceptado" required /></label>
+                    }
+                }
+        </div>

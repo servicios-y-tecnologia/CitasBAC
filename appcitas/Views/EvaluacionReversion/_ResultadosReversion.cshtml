@@ -1,0 +1,38 @@
+﻿@model IEnumerable<appcitas.Dtos.ResultadoReversionDto>
+
+@if (ViewBag.Buro)
+{
+    <div class="alert alert-danger">
+        <strong>Este cliente presenta estado de Buro Rojo, referir al departamento de Recuperacion de Mora/Cobros</strong>
+    </div>
+}
+else
+{
+    if (@Model != null && @Model.Count() > 0)
+    {
+        <div class="form-group">
+            <label for="CBX" class="control-label">Resultados</label>
+            @Html.DropDownList("Resultados", new SelectList(@Model, "ResultadoReversionId", "ResultadoReversionDescripcion"), "seleccione un resultado", new { @class = "form-control", @onChange = "ResultadosCbxChange(event)" })
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <strong>Este cliente no aplica a ningun beneficio</strong>
+        </div>
+    }
+}
+
+        <div class="form-group">
+            @{
+                if (ViewBag.EsComboReversion)
+                {
+                    <label for="resultadoAceptadoReversion" class="control-label">Resultado Aceptado por el Cliente? <input type="checkbox" onchange="AceptadoComboChange(event)" class="checkbox" id="resultadoAceptadoReversion" required /></label>
+                }
+                else
+                {
+                    <label for="resultadoAceptado" class="control-label">Resultado Aceptado por el Cliente? <input type="checkbox" class="checkbox" id="resultadoAceptado" required /></label>
+                }
+           }
+        </div>
+

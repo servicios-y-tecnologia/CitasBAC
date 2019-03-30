@@ -1,0 +1,790 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ConsultarListasDeConfiguracion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarListasDeConfiguracionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultarListasDeConfiguracionResult" type="tns:ArrayOfConfigItemDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfConfigItemDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ConfigItemDTO" nillable="true" type="tns:ConfigItemDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ConfigItemDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ConfigId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemDescripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemAbreviatura" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemObservacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemStatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemOrden" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasError" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsultarTiposRazon">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarTiposRazonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultarTiposRazonResult" type="tns:ArrayOfTipoRazonDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTipoRazonDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TipoRazonDTO" nillable="true" type="tns:TipoRazonDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TipoRazonDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Abreviatura" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Autoservicio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasError" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsultarCentrosDeAtencion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarCentrosDeAtencionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultarCentrosDeAtencionResult" type="tns:ArrayOfSucursalDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSucursalDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SucursalDTO" nillable="true" type="tns:SucursalDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SucursalDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasError" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsultarCentrosDeAtencionPorSegmento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="segmentoId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarCentrosDeAtencionPorSegmentoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultarCentrosDeAtencionPorSegmentoResult" type="tns:ArrayOfSucursalDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarHorariosDeAtencion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sucursalId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarHorariosDeAtencionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultarHorariosDeAtencionResult" type="tns:ArrayOfHorarioDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfHorarioDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HorarioDTO" nillable="true" type="tns:HorarioDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="HorarioDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SucursalId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="EsLaboral" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="HoraInicio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HoraFinal" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HoraInicioEnMinutos" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="HoraFinalEnMinutos" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="EsCorrido" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Posiciones" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasError" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsultarSucursal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sucursalId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarSucursalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultarSucursalResult" type="tns:SucursalDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarCitaPorTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="numeroTicket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sucursalId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarCitaPorTicketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultarCitaPorTicketResult" type="tns:CitaDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CitaDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Identidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Telefono" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Hora" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ticket" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PosicionNombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrioridadNombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SucursalId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="SucursalNombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MarcaId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SegmentoId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Producto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Familia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RazonId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Razon" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasError" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsultarCitaPorTarjeta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="numeroTarjeta" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sucursalId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarCitaPorTarjetaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultarCitaPorTarjetaResult" type="tns:CitaDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmarCita">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="numeroTicket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmarCitaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConfirmarCitaResult" type="tns:TaskStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TaskStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="HasError" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CrearCitaWalkIn">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaIdentificacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaNombre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaCorreoElectronico" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaTelefonoCelular" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaTelefonoOficina" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaTelefonoCasa" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaTarjeta" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaCuenta" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="tramiteId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="prioridadId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="sucursalId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="sucursalIdReferido" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaSegmentoId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaEstado" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="citaTipo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="emisorId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuarioCreacion" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="permiteTodoSegmento" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CrearCitaWalkInResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CrearCitaWalkInResult" type="tns:CitaDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CrearCitaProgramada">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaIdentificacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaNombre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaCorreoElectronico" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaTelefonoCelular" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaTelefonoOficina" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaTelefonoCasa" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="citaFecha" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="citaHora" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaTarjeta" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaCuenta" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="tramiteId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="sucursalId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaSegmentoId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaEstado" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="emisorId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuarioCreacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="citaRazon" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="agenciaOrigen" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="posiciones" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CrearCitaProgramadaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CrearCitaProgramadaResult" type="tns:CitaDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarEmailCitaProgramada">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cita" type="tns:CitaDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarEmailCitaProgramadaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnviarEmailCitaProgramadaResult" type="tns:TaskStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarEmail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="emailTo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="emailSubject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isHTML" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarEmailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnviarEmailResult" type="tns:TaskStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarPorTarjeta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="numeroTarjeta" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarPorTarjetaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultarPorTarjetaResult" type="tns:TarjetaDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TarjetaDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Identidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Telefono" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cuenta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RazonId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="EmisorId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmisorCuenta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MarcaId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Marca" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SegmentoId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Segmento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Producto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Familia" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasError" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ConsultarListasDeConfiguracionSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultarListasDeConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarListasDeConfiguracionSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultarListasDeConfiguracionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarTiposRazonSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultarTiposRazon" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarTiposRazonSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultarTiposRazonResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarCentrosDeAtencionSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultarCentrosDeAtencion" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarCentrosDeAtencionSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultarCentrosDeAtencionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarCentrosDeAtencionPorSegmentoSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultarCentrosDeAtencionPorSegmento" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarCentrosDeAtencionPorSegmentoSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultarCentrosDeAtencionPorSegmentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarHorariosDeAtencionSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultarHorariosDeAtencion" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarHorariosDeAtencionSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultarHorariosDeAtencionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarSucursalSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultarSucursal" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarSucursalSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultarSucursalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarCitaPorTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultarCitaPorTicket" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarCitaPorTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultarCitaPorTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarCitaPorTarjetaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultarCitaPorTarjeta" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarCitaPorTarjetaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultarCitaPorTarjetaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmarCitaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConfirmarCita" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmarCitaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConfirmarCitaResponse" />
+  </wsdl:message>
+  <wsdl:message name="CrearCitaWalkInSoapIn">
+    <wsdl:part name="parameters" element="tns:CrearCitaWalkIn" />
+  </wsdl:message>
+  <wsdl:message name="CrearCitaWalkInSoapOut">
+    <wsdl:part name="parameters" element="tns:CrearCitaWalkInResponse" />
+  </wsdl:message>
+  <wsdl:message name="CrearCitaProgramadaSoapIn">
+    <wsdl:part name="parameters" element="tns:CrearCitaProgramada" />
+  </wsdl:message>
+  <wsdl:message name="CrearCitaProgramadaSoapOut">
+    <wsdl:part name="parameters" element="tns:CrearCitaProgramadaResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarEmailCitaProgramadaSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarEmailCitaProgramada" />
+  </wsdl:message>
+  <wsdl:message name="EnviarEmailCitaProgramadaSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarEmailCitaProgramadaResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarEmailSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarEmail" />
+  </wsdl:message>
+  <wsdl:message name="EnviarEmailSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarPorTarjetaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultarPorTarjeta" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarPorTarjetaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultarPorTarjetaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CitasAutoservicioWSSoap">
+    <wsdl:operation name="ConsultarListasDeConfiguracion">
+      <wsdl:input message="tns:ConsultarListasDeConfiguracionSoapIn" />
+      <wsdl:output message="tns:ConsultarListasDeConfiguracionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarTiposRazon">
+      <wsdl:input message="tns:ConsultarTiposRazonSoapIn" />
+      <wsdl:output message="tns:ConsultarTiposRazonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCentrosDeAtencion">
+      <wsdl:input message="tns:ConsultarCentrosDeAtencionSoapIn" />
+      <wsdl:output message="tns:ConsultarCentrosDeAtencionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCentrosDeAtencionPorSegmento">
+      <wsdl:input message="tns:ConsultarCentrosDeAtencionPorSegmentoSoapIn" />
+      <wsdl:output message="tns:ConsultarCentrosDeAtencionPorSegmentoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarHorariosDeAtencion">
+      <wsdl:input message="tns:ConsultarHorariosDeAtencionSoapIn" />
+      <wsdl:output message="tns:ConsultarHorariosDeAtencionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarSucursal">
+      <wsdl:input message="tns:ConsultarSucursalSoapIn" />
+      <wsdl:output message="tns:ConsultarSucursalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCitaPorTicket">
+      <wsdl:input message="tns:ConsultarCitaPorTicketSoapIn" />
+      <wsdl:output message="tns:ConsultarCitaPorTicketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCitaPorTarjeta">
+      <wsdl:input message="tns:ConsultarCitaPorTarjetaSoapIn" />
+      <wsdl:output message="tns:ConsultarCitaPorTarjetaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmarCita">
+      <wsdl:input message="tns:ConfirmarCitaSoapIn" />
+      <wsdl:output message="tns:ConfirmarCitaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CrearCitaWalkIn">
+      <wsdl:input message="tns:CrearCitaWalkInSoapIn" />
+      <wsdl:output message="tns:CrearCitaWalkInSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CrearCitaProgramada">
+      <wsdl:input message="tns:CrearCitaProgramadaSoapIn" />
+      <wsdl:output message="tns:CrearCitaProgramadaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarEmailCitaProgramada">
+      <wsdl:input message="tns:EnviarEmailCitaProgramadaSoapIn" />
+      <wsdl:output message="tns:EnviarEmailCitaProgramadaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarEmail">
+      <wsdl:input message="tns:EnviarEmailSoapIn" />
+      <wsdl:output message="tns:EnviarEmailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarPorTarjeta">
+      <wsdl:input message="tns:ConsultarPorTarjetaSoapIn" />
+      <wsdl:output message="tns:ConsultarPorTarjetaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CitasAutoservicioWSSoap" type="tns:CitasAutoservicioWSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultarListasDeConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/ConsultarListasDeConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarTiposRazon">
+      <soap:operation soapAction="http://tempuri.org/ConsultarTiposRazon" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCentrosDeAtencion">
+      <soap:operation soapAction="http://tempuri.org/ConsultarCentrosDeAtencion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCentrosDeAtencionPorSegmento">
+      <soap:operation soapAction="http://tempuri.org/ConsultarCentrosDeAtencionPorSegmento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarHorariosDeAtencion">
+      <soap:operation soapAction="http://tempuri.org/ConsultarHorariosDeAtencion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarSucursal">
+      <soap:operation soapAction="http://tempuri.org/ConsultarSucursal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCitaPorTicket">
+      <soap:operation soapAction="http://tempuri.org/ConsultarCitaPorTicket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCitaPorTarjeta">
+      <soap:operation soapAction="http://tempuri.org/ConsultarCitaPorTarjeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmarCita">
+      <soap:operation soapAction="http://tempuri.org/ConfirmarCita" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CrearCitaWalkIn">
+      <soap:operation soapAction="http://tempuri.org/CrearCitaWalkIn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CrearCitaProgramada">
+      <soap:operation soapAction="http://tempuri.org/CrearCitaProgramada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarEmailCitaProgramada">
+      <soap:operation soapAction="http://tempuri.org/EnviarEmailCitaProgramada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarEmail">
+      <soap:operation soapAction="http://tempuri.org/EnviarEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarPorTarjeta">
+      <soap:operation soapAction="http://tempuri.org/ConsultarPorTarjeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CitasAutoservicioWSSoap12" type="tns:CitasAutoservicioWSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultarListasDeConfiguracion">
+      <soap12:operation soapAction="http://tempuri.org/ConsultarListasDeConfiguracion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarTiposRazon">
+      <soap12:operation soapAction="http://tempuri.org/ConsultarTiposRazon" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCentrosDeAtencion">
+      <soap12:operation soapAction="http://tempuri.org/ConsultarCentrosDeAtencion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCentrosDeAtencionPorSegmento">
+      <soap12:operation soapAction="http://tempuri.org/ConsultarCentrosDeAtencionPorSegmento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarHorariosDeAtencion">
+      <soap12:operation soapAction="http://tempuri.org/ConsultarHorariosDeAtencion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarSucursal">
+      <soap12:operation soapAction="http://tempuri.org/ConsultarSucursal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCitaPorTicket">
+      <soap12:operation soapAction="http://tempuri.org/ConsultarCitaPorTicket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCitaPorTarjeta">
+      <soap12:operation soapAction="http://tempuri.org/ConsultarCitaPorTarjeta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmarCita">
+      <soap12:operation soapAction="http://tempuri.org/ConfirmarCita" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CrearCitaWalkIn">
+      <soap12:operation soapAction="http://tempuri.org/CrearCitaWalkIn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CrearCitaProgramada">
+      <soap12:operation soapAction="http://tempuri.org/CrearCitaProgramada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarEmailCitaProgramada">
+      <soap12:operation soapAction="http://tempuri.org/EnviarEmailCitaProgramada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarEmail">
+      <soap12:operation soapAction="http://tempuri.org/EnviarEmail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarPorTarjeta">
+      <soap12:operation soapAction="http://tempuri.org/ConsultarPorTarjeta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CitasAutoservicioWS">
+    <wsdl:port name="CitasAutoservicioWSSoap" binding="tns:CitasAutoservicioWSSoap">
+      <soap:address location="http://localhost/Citas%20Autoservicio%20Services/CitasAutoservicioWS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CitasAutoservicioWSSoap12" binding="tns:CitasAutoservicioWSSoap12">
+      <soap12:address location="http://localhost/Citas%20Autoservicio%20Services/CitasAutoservicioWS.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

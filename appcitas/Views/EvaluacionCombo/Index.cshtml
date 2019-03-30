@@ -1,0 +1,295 @@
+﻿@model appcitas.Dtos.ComboDto
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = Model._nolayout == true? null: "~/Views/Shared/_Layout.cshtml";
+    //  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/js/combos.js"></script>
+<script src="~/Scripts/js/Anualidad.js"></script>
+<script src="~/Scripts/js/Reversion.js"></script>
+<script src="~/Scripts/js/Tasas.js"></script>
+
+
+@*@section scripts{
+    @Scripts.Render("~/Scripts/js/combos.js")
+    @Scripts.Render("~/Scripts/js/Anualidad.js")
+    @Scripts.Render("~/Scripts/js/Reversion.js")
+    @Scripts.Render("~/Scripts/js/Tasas.js")
+}*@
+
+
+<div id="indexcombo" class="box bac ">
+    <div class="box-header">
+        <h3 class="titulo">Evaluación de Combos - Motor de Retenciones</h3>
+        <div class="row nomargin">
+        </div>
+    </div>
+    <div class="box-body">
+        <form id="FormCombos">
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.EditorFor(model => model.ComboId, new { htmlAttributes = new { @class = "hidden" } })
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="bodycombo">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                @Html.LabelFor(model => model.Identidad, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Identidad, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Identidad, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-3">
+                                @Html.LabelFor(model => model.NumeroTarjeta, htmlAttributes: new { @class = "control-label" })
+                                <div class="input-group">
+                                    @Html.EditorFor(model => model.NumeroTarjeta, new { htmlAttributes = new { @class = "form-control" } })
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" onclick="BuscarPorTarjetaCombo(event)"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                @Html.LabelFor(model => model.NumeroCuenta, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.NumeroCuenta, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.NumeroCuenta, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                @Html.LabelFor(model => model.CIF, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.CIF, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.CIF, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 form-group">
+                                @Html.LabelFor(model => model.Familia, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Familia, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Familia, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-3 form-group">
+                                @Html.LabelFor(model => model.Segmento, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Segmento, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Segmento, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.EditorFor(model => model.SegmentoId, new { htmlAttributes = new { @class = "hidden" } })
+                            <div class="col-md-3 form-group">
+                                @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Marca, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.EditorFor(model => model.MarcaId, new { htmlAttributes = new { @class = "hidden" } })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.ComboOpId, htmlAttributes: new { @class = "control-label" })
+                            @(Html.DropDownListFor(model => model.ComboOpId
+                                                                                              , new SelectList(ViewBag.Combos, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un combo", new { @class = "form-control", @onchange = "OnTipoCombo_IChange(event)" })
+
+                            )
+                            @Html.ValidationMessageFor(model => model.ComboOpId, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.ComboName, new { htmlAttributes = new { @class = "form-control hidden" } })
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.SaldoActual, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.SaldoActual, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.SaldoActual, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.Limite, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Limite, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Limite, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <div id="columna0" >
+
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <div id="columna1" >
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-primary btn-block" type="button" onclick="EvaluarVariablesCombo(event)">Evaluar Variables</button>
+                </div>
+            </div>
+            <br />
+        </form>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default miPanel" style="overflow:scroll">
+                    <div class="panel-heading">
+                        <strong>Resultados de Variables</strong>
+                    </div>
+                    <div class="panel-body">
+                        <table id="resultadosDeVariables0" class="list-table table table-bordered columna00">
+                            <thead>
+                                <tr>
+                                    <th>Cargo #</th>
+                                    <th class="hidden">Codigo</th>
+                                    <th class="hidden">ReclamoId</th>
+                                    <th class="hidden">ItemId</th>
+                                    <th>Codigo grupo</th>
+                                    <th>Grupo Variable</th>
+                                    <th>Item</th>
+                                    <th class="hidden">VariableDeItemId</th>
+                                    <th>Variable</th>
+                                    <th>Valor </th>
+                                    <th>Condicion</th>
+                                    <th>Valor Comparativo</th>
+                                    <th class="hidden">ResultadoBooleano</th>
+                                    <th>Resultado</th>
+                                </tr>
+                            </thead>
+                            <tbody class="dataTables_fontTbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>Resultados de Evaluacion</strong>
+                    </div>
+                    <div class="panel-body miPanelResultado">
+                        <div id="resultadosContainer0">
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Observacion, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Observacion, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    @*<div class="panel-footer">
+                        <button class="btn btn-primary" type="button" onclick="GuardarCombo0(event)"> Guardar Evaluacion</button>
+                        <input type="reset" class="btn btn-default" value="Resetear Formulario" />
+                    </div>*@
+                </div>
+            </div>
+
+            </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default miPanel" style="overflow:scroll">
+                    <div class="panel-heading">
+                        <strong>Resultados de Variables</strong>
+                    </div>
+                    <div class="panel-body">
+                        <table id="resultadosDeVariables1" class="list-table table table-bordered columna01">
+                            <thead>
+                                <tr>
+                                    <th>Cargo #</th>
+                                    <th class="hidden">Codigo</th>
+                                    <th class="hidden">ReclamoId</th>
+                                    <th class="hidden">ItemId</th>
+                                    <th>Codigo grupo</th>
+                                    <th>Grupo Variable</th>
+                                    <th>Item</th>
+                                    <th class="hidden">VariableDeItemId</th>
+                                    <th>Variable</th>
+                                    <th>Valor </th>
+                                    <th>Condicion</th>
+                                    <th>Valor Comparativo</th>
+                                    <th class="hidden">ResultadoBooleano</th>
+                                    <th>Resultado</th>
+                                </tr>
+                            </thead>
+                            <tbody class="dataTables_fontTbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>Resultados de Evaluacion</strong>
+                    </div>
+                    <div class="panel-body miPanelResultado">
+                        <div id="resultadosContainer1">
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Observacion, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Observacion, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-footer">
+                        <button class="btn btn-primary" type="button" onclick="GuardarCombo(event)"> Guardar Evaluacion</button>
+                        <input type="reset" class="btn btn-default" value="Resetear Formulario" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="botonesWizard" class="row nomargin hidden" style="margin-top: 20px !important;">
+            <div class="col-sm-3 col-md-3 col-lg-2">
+                <button class="btn btn-md btn-default" onClick='buscarDeNuevo()'>
+                    <span> Buscar de nuevo </span>
+                    <i class="fa fa-search"> </i>
+                </button>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-2">
+                <button class="btn btn-md btn-primary hidden" onClick='verResultado()'>
+                    <span> Ver Resultados </span>
+                    <i class="fa fa-search"> </i>
+                </button>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-8 text-right">
+                <button class="btn btn-md btn-warning" onClick='activarTab("nueva_cita_razon")' title='Datos generales' data-toggle='tooltip' data-placement='top'>
+                    <i class="fa fa-arrow-left"> </i>
+                    <span> Anterior</span>
+                </button>
+                <button class="btn btn-default" title="Limpiar Datos" onclick="ResetFormTasa(event)" data-toggle="tooltip" data-placement="top">
+                    <span>Limpiar Datos</span>
+                    <i class="fa fa-eraser"></i>
+                </button>
+                <button class="btn btn-primary hidden" id="GuardarComboBtn" onclick="GuardarCombo(event)" type="button" title="Guardar Datos" data-toggle="tooltip" data-placement="top">
+                    <span>Finalizar</span>
+                    <i class="fa fa-save"></i>
+                </button>
+                <button class="btn btn-success" id="SiguienteComboBtn" type="button" onclick="activarTabDesdeCombo(event)" title="Siguiente" data-placement="top">
+                    <span>Siguiente</span>
+                    <i class="fa fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+

@@ -1,0 +1,40 @@
+﻿@model appcitas.Dtos.AnualidadDto
+
+@{
+    ViewBag.Title = "pvwAnualidad";
+}
+
+<form id="AnualidadEvalForm">
+    <h2>Anualidad</h2>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TipoAnualidadId, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.TipoAnualidadId, new SelectList(ViewBag.TipoDeAnualidades, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un tipo de anualidad", new { @class = "form-control", @onChange = "TipoAnualidadOnChange(event)" })
+                        @Html.ValidationMessageFor(model => model.TipoAnualidadId, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.EditorFor(model => model.TipoAnualidad, new { htmlAttributes = new { @class = "hidden" } })
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Monto, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Monto, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Monto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FechaDeCargo, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.FechaDeCargo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FechaDeCargo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>

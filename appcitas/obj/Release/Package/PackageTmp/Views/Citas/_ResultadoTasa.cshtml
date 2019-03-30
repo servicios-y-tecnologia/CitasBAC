@@ -1,0 +1,29 @@
+﻿@model IEnumerable<appcitas.Dtos.TasaResultadoDto>
+
+@if (ViewBag.Buro)
+{
+    <div class="alert alert-danger">
+        <strong>Este cliente presenta estado de Buro Rojo, referir al departamento de Recuperacion de Mora/Cobros</strong>
+    </div>
+}
+else
+{
+    if (Model != null && Model.Count() > 0)
+    {
+        <div class="form-group">
+            <label for="ResultadosCbx" class="control-label">Resultados de la Evaluacion</label>
+            @Html.DropDownList("ResultadosCbx", new SelectList(Model, "ItemDeReclamoId", "ItemDeReclamoDescripcion"), "seleccione un resultado", new { @class = "form-control" })
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <strong>Este cliente no aplica a ningun beneficio</strong>
+        </div>
+    }
+}
+
+    <div class="form-group">
+        <label for="resultadoAceptadoTasa" class="control-label">Resultado Aceptado por el Cliente? <input type="checkbox" class="checkbox" id="resultadoAceptadoTasa" required onchange="AceptadoTasaChange(event)" /></label>
+    </div>
+
