@@ -388,14 +388,15 @@ namespace appcitas.Controllers
             return View(model);
         }
 
+        //public async Task<ActionResult> ObtenerResultados(List<AnualidadVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario)
         [HttpPost]
-        public async Task<ActionResult> ObtenerResultados(List<AnualidadVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario)
+        public ActionResult ObtenerResultados(List<AnualidadVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario)
         {
             var listaDeResultados = new List<AnualidadResultadoObtenidoDto>();
             try
             {
 
-                ViewBag.Buro = await EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
+                ViewBag.Buro = /*await*/ EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
                     StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
 
                 //  var itemrid = dataList.GroupBy(x => x.ItemDeReclamoId);

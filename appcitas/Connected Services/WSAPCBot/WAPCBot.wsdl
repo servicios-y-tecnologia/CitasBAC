@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/WS_ref_APC/ServiceConsult_APC" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/WS_ref_APC/ServiceConsult_APC" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/WS_ref_APC/ServiceConsult_APC">
+      <s:element name="BAC_APC_WS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="type_cli" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_cli" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="app" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="referencia1" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="referencia2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BAC_APC_WSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BAC_APC_WSResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="APC_WS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="type_cli" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_cli" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="app" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="referencia1" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="referencia2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="APC_WSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="APC_WSResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BAC_APC_WS_S3">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="forzar_consulta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="type_cli" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_cli" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="app" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="referencia1" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="referencia2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BAC_APC_WS_S3Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BAC_APC_WS_S3Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BAC_APC_ScorePi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id_cli" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="type_cli" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="app" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="referencia1" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="referencia2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BAC_APC_ScorePiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BAC_APC_ScorePiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BAC_APC_Historia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id_cli" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="type_cli" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="app" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="referencia1" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="referencia2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BAC_APC_HistoriaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BAC_APC_HistoriaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="BAC_APC_WSSoapIn">
+    <wsdl:part name="parameters" element="tns:BAC_APC_WS" />
+  </wsdl:message>
+  <wsdl:message name="BAC_APC_WSSoapOut">
+    <wsdl:part name="parameters" element="tns:BAC_APC_WSResponse" />
+  </wsdl:message>
+  <wsdl:message name="APC_WSSoapIn">
+    <wsdl:part name="parameters" element="tns:APC_WS" />
+  </wsdl:message>
+  <wsdl:message name="APC_WSSoapOut">
+    <wsdl:part name="parameters" element="tns:APC_WSResponse" />
+  </wsdl:message>
+  <wsdl:message name="BAC_APC_WS_S3SoapIn">
+    <wsdl:part name="parameters" element="tns:BAC_APC_WS_S3" />
+  </wsdl:message>
+  <wsdl:message name="BAC_APC_WS_S3SoapOut">
+    <wsdl:part name="parameters" element="tns:BAC_APC_WS_S3Response" />
+  </wsdl:message>
+  <wsdl:message name="BAC_APC_ScorePiSoapIn">
+    <wsdl:part name="parameters" element="tns:BAC_APC_ScorePi" />
+  </wsdl:message>
+  <wsdl:message name="BAC_APC_ScorePiSoapOut">
+    <wsdl:part name="parameters" element="tns:BAC_APC_ScorePiResponse" />
+  </wsdl:message>
+  <wsdl:message name="BAC_APC_HistoriaSoapIn">
+    <wsdl:part name="parameters" element="tns:BAC_APC_Historia" />
+  </wsdl:message>
+  <wsdl:message name="BAC_APC_HistoriaSoapOut">
+    <wsdl:part name="parameters" element="tns:BAC_APC_HistoriaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSAPCbotSoap">
+    <wsdl:operation name="BAC_APC_WS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método busca las referencias primeramente en el repositorio local. Si no existen se hace la consulta al Webservice del Buró de Crédito (Retorna un Dataset)</wsdl:documentation>
+      <wsdl:input message="tns:BAC_APC_WSSoapIn" />
+      <wsdl:output message="tns:BAC_APC_WSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="APC_WS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método llama al Webservice del Buró de Crédito (Retorna un Dataset)</wsdl:documentation>
+      <wsdl:input message="tns:APC_WSSoapIn" />
+      <wsdl:output message="tns:APC_WSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BAC_APC_WS_S3">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método busca las referencias primeramente en el repositorio local. Si no existen se hace la consulta al Webservice del Buró de Crédito (Retorna un String que contiene un XML con las referencias)</wsdl:documentation>
+      <wsdl:input message="tns:BAC_APC_WS_S3SoapIn" />
+      <wsdl:output message="tns:BAC_APC_WS_S3SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BAC_APC_ScorePi">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método llama al Webservice de BAC (Retorna un JSON - ScorePi)</wsdl:documentation>
+      <wsdl:input message="tns:BAC_APC_ScorePiSoapIn" />
+      <wsdl:output message="tns:BAC_APC_ScorePiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BAC_APC_Historia">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Este método llama al Webservice de BAC (Retorna un JSON - Historia)</wsdl:documentation>
+      <wsdl:input message="tns:BAC_APC_HistoriaSoapIn" />
+      <wsdl:output message="tns:BAC_APC_HistoriaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSAPCbotSoap" type="tns:WSAPCbotSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BAC_APC_WS">
+      <soap:operation soapAction="http://tempuri.org/WS_ref_APC/ServiceConsult_APC/BAC_APC_WS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="APC_WS">
+      <soap:operation soapAction="http://tempuri.org/WS_ref_APC/ServiceConsult_APC/APC_WS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BAC_APC_WS_S3">
+      <soap:operation soapAction="http://tempuri.org/WS_ref_APC/ServiceConsult_APC/BAC_APC_WS_S3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BAC_APC_ScorePi">
+      <soap:operation soapAction="http://tempuri.org/WS_ref_APC/ServiceConsult_APC/BAC_APC_ScorePi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BAC_APC_Historia">
+      <soap:operation soapAction="http://tempuri.org/WS_ref_APC/ServiceConsult_APC/BAC_APC_Historia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSAPCbotSoap12" type="tns:WSAPCbotSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BAC_APC_WS">
+      <soap12:operation soapAction="http://tempuri.org/WS_ref_APC/ServiceConsult_APC/BAC_APC_WS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="APC_WS">
+      <soap12:operation soapAction="http://tempuri.org/WS_ref_APC/ServiceConsult_APC/APC_WS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BAC_APC_WS_S3">
+      <soap12:operation soapAction="http://tempuri.org/WS_ref_APC/ServiceConsult_APC/BAC_APC_WS_S3" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BAC_APC_ScorePi">
+      <soap12:operation soapAction="http://tempuri.org/WS_ref_APC/ServiceConsult_APC/BAC_APC_ScorePi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BAC_APC_Historia">
+      <soap12:operation soapAction="http://tempuri.org/WS_ref_APC/ServiceConsult_APC/BAC_APC_Historia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSAPCbot">
+    <wsdl:port name="WSAPCbotSoap" binding="tns:WSAPCbotSoap">
+      <soap:address location="http://panlocvdweb02/WSAPC/WSAPCbot.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSAPCbotSoap12" binding="tns:WSAPCbotSoap12">
+      <soap12:address location="http://panlocvdweb02/WSAPC/WSAPCbot.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -643,14 +643,15 @@ namespace appcitas.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ObtenerResultadosAnualidad(List<AnualidadVariableEvaluadaDto> dataList, string clasificacion, decimal limite,string id_cli, string formulario="")
+        //public async Task<ActionResult> ObtenerResultadosAnualidad(List<AnualidadVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario = "")
+        public ActionResult ObtenerResultadosAnualidad(List<AnualidadVariableEvaluadaDto> dataList, string clasificacion, decimal limite,string id_cli, string formulario="")
         {
             var model = new List<AnualidadResultadoObtenidoDto>();
 
 
             try
             {
-                ViewBag.Buro = await EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
+                ViewBag.Buro = /*await*/ EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
                 StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
 
 
@@ -724,15 +725,16 @@ namespace appcitas.Controllers
             });
         }
 
+        //public async Task<ActionResult> ObtenerResultadosReversion(List<VariableReversionDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario = "")
         [HttpPost]
-        public async Task<ActionResult> ObtenerResultadosReversion(List<VariableReversionDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario="")
+        public ActionResult ObtenerResultadosReversion(List<VariableReversionDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario="")
         {
             var listaDeResultados = new List<ResultadoReversionDto>();
 
 
             try
             {
-                ViewBag.Buro = await EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
+                ViewBag.Buro = /*await*/ EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
       StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
 
                 var codegroup = dataList.GroupBy(x => x.CodeGroupVariable);
@@ -802,14 +804,15 @@ namespace appcitas.Controllers
             });
         }
 
+        //public async Task<ActionResult> ObtenerResultadosTasa(List<TasaVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario)
         [HttpPost]
-        public async Task<ActionResult> ObtenerResultadosTasa(List<TasaVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario)
+        public ActionResult ObtenerResultadosTasa(List<TasaVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario)
         {
             var listaDeResultados = new List<TasaResultadoDto>();
 
             try
             {
-                ViewBag.Buro = await EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
+                ViewBag.Buro = /*await*/ EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
     StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
 
 

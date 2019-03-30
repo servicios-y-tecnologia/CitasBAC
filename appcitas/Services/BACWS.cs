@@ -15,30 +15,34 @@ namespace appcitas.Services
     {
         #region Public Methods
 
-        public static async Task<HistorialObject> GetAtrasosDeHistorial(string id_cli, int type_cli, string user, int app, int referencia1, string referencia2, string token)
+        //public static async Task<HistorialObject> GetAtrasosDeHistorial(string id_cli, int type_cli, string user, int app, int referencia1, string referencia2, string token)
+        public static HistorialObject GetAtrasosDeHistorial(string id_cli, int type_cli, string user, int app, int referencia1, string referencia2, string token)
         {
-            ObjetoDevueltoHistorial _BACObject = await BACWS.GetHistorial(id_cli, type_cli, user, app, referencia1, referencia2, token);
+            //ObjetoDevueltoHistorial _BACObject = /*await*/ BACWS.GetHistorial(id_cli, type_cli, user, app, referencia1, referencia2, token);
+            List<ObjetoDevueltoHistorial> _BACObjectA = /*await*/ BACWS.GetHistorial(id_cli, type_cli, user, app, referencia1, referencia2, token);
             HistorialObject objetoHistorial = new HistorialObject();
-            for (int i = 0; i < _BACObject.historia.Length; i++)
+            foreach (ObjetoDevueltoHistorial _BACObject in _BACObjectA)
             {
-                if (_BACObject.historia[i] == 2)
-                    objetoHistorial.atrasosDe30 += 1;
-                if (_BACObject.historia[i] == 3)
-                    objetoHistorial.atrasosDe60 += 1;
-                if (_BACObject.historia[i] == 4)
-                    objetoHistorial.atrasosDe90 += 1;
-                if (_BACObject.historia[i] == 5)
-                    objetoHistorial.atrasosDe120 += 1;
-                if (_BACObject.historia[i] == 6)
-                    objetoHistorial.atrasosDe150 += 1;
-                if (_BACObject.historia[i] == 7)
-                    objetoHistorial.atrasosDe180 += 1;
-                if (_BACObject.historia[i] == 8)
-                    objetoHistorial.atrasosDe181_365 += 1;
-                if (_BACObject.historia[i] == 9)
-                    objetoHistorial.atrasosMayoresA365 += 1;
+                for (int i = 0; i < _BACObject.historia.Length; i++)
+                {
+                    if (_BACObject.historia[i] == 2)
+                        objetoHistorial.atrasosDe30 += 1;
+                    if (_BACObject.historia[i] == 3)
+                        objetoHistorial.atrasosDe60 += 1;
+                    if (_BACObject.historia[i] == 4)
+                        objetoHistorial.atrasosDe90 += 1;
+                    if (_BACObject.historia[i] == 5)
+                        objetoHistorial.atrasosDe120 += 1;
+                    if (_BACObject.historia[i] == 6)
+                        objetoHistorial.atrasosDe150 += 1;
+                    if (_BACObject.historia[i] == 7)
+                        objetoHistorial.atrasosDe180 += 1;
+                    if (_BACObject.historia[i] == 8)
+                        objetoHistorial.atrasosDe181_365 += 1;
+                    if (_BACObject.historia[i] == 9)
+                        objetoHistorial.atrasosMayoresA365 += 1;
+                }
             }
-
             return objetoHistorial;
         }
 
@@ -76,35 +80,44 @@ namespace appcitas.Services
             return _BACObject;
         }
 
-        public static async Task<ObjetoDevueltoHistorial> GetHistorial(string id_cli, int type_cli, string user, int app, int referencia1, string referencia2, string token)
+        //public static async Task<ObjetoDevueltoHistorial> GetHistorial(string id_cli, int type_cli, string user, int app, int referencia1, string referencia2, string token)
+        public static List<ObjetoDevueltoHistorial> GetHistorial(string id_cli, int type_cli, string user, int app, int referencia1, string referencia2, string token)
         {
-            ObjetoDevueltoHistorial _BACObject = null;
-            if (HttpContext.Current.IsDebuggingEnabled)
-            {
-                HttpClient httpClient = new HttpClient { BaseAddress = new Uri("http://localhost/BACScoringWS") };
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                string uriString = $"http://localhost/BACScoringWS/api/ScoringService/GetHistorial?id_cli={id_cli}&type_cli={type_cli}&user={user}&app={app}&referencia1={referencia1}&referencia2={referencia2}&token={token}";
-                HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(new Uri(uriString));
+            //ObjetoDevueltoHistorial _BACObject = null;
+            //if (HttpContext.Current.IsDebuggingEnabled)
+            //{
+            //    HttpClient httpClient = new HttpClient { BaseAddress = new Uri("http://localhost/BACScoringWS") };
+            //    httpClient.DefaultRequestHeaders.Accept.Clear();
+            //    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //    string uriString = $"http://localhost/BACScoringWS/api/ScoringService/GetHistorial?id_cli={id_cli}&type_cli={type_cli}&user={user}&app={app}&referencia1={referencia1}&referencia2={referencia2}&token={token}";
+            //    HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(new Uri(uriString));
 
-                if (httpResponseMessage.IsSuccessStatusCode)
-                {
-                    var responseData = httpResponseMessage.Content.ReadAsStringAsync().Result;
-                    _BACObject = JsonConvert.DeserializeObject<ObjetoDevueltoHistorial>(responseData);
-                }
-            }
-            else
-            {
+            //    if (httpResponseMessage.IsSuccessStatusCode)
+            //    {
+            //        var responseData = httpResponseMessage.Content.ReadAsStringAsync().Result;
+            //        _BACObject = JsonConvert.DeserializeObject<ObjetoDevueltoHistorial>(responseData);
+            //    }
+            //}
+            //else
+            //{
                 ///////////////////////////////////
                 //DESCOMENTAR ESTO PARA PUBLICAR//
                 /////////////////////////////////
 
-                //var client = new WSAPCbot.WSAPCbotSoapClient();
-                //var response = client.BAC_APC_Historia(id_cli, type_cli, user, app, referencia1, referencia2, token);
+                var client = new WSAPCBot.WSAPCbotSoapClient();
+                var response = client.BAC_APC_Historia(id_cli, type_cli, user, app, referencia1, referencia2, token);
+            try
+            {
+                List<ObjetoDevueltoHistorial> _BACObjectA = JsonConvert.DeserializeObject<List<ObjetoDevueltoHistorial>>(response); //new List<ObjetoDevueltoHistorial>(a.Count);
                 //ObjetoDevueltoHistorial _BACObject = JsonConvert.DeserializeObject<ObjetoDevueltoHistorial>(response);
+                return _BACObjectA;
             }
-
-            return _BACObject;
+            catch(Exception ex)
+            {
+                // si da error en la deserializacioin entenderia que no encontro a la persona en el buro.
+                return new List<ObjetoDevueltoHistorial>();
+            }
+            //}
         }
 
         public static async Task<BACObject> GetInfoClientByCif(string cuenta)
@@ -126,32 +139,33 @@ namespace appcitas.Services
             return _BACObject;
         }
 
-        public static async Task<ObjetoDevueltoScore> GetScore(string id_cli, int type_cli, string user, int app, int referencia1, string referencia2, string token)
+        //public static async Task<ObjetoDevueltoScore> GetScore(string id_cli, int type_cli, string user, int app, int referencia1, string referencia2, string token)
+        public static ObjetoDevueltoScore GetScore(string id_cli, int type_cli, string user, int app, int referencia1, string referencia2, string token)
         {
             ObjetoDevueltoScore _BACObject = null;
-            if (HttpContext.Current.IsDebuggingEnabled)
-            {
-                HttpClient httpClient = new HttpClient { BaseAddress = new Uri("http://localhost/BACScoringWS") };
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                string uriString = $"http://localhost/BACScoringWS/api/ScoringService/GetScore?id_cli={id_cli}&type_cli={type_cli}&user={user}&app={app}&referencia1={referencia1}&referencia2={referencia2}&token={token}";
-                HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(new Uri(uriString));
+            //if (HttpContext.Current.IsDebuggingEnabled)
+            //{
+            //    HttpClient httpClient = new HttpClient { BaseAddress = new Uri("http://localhost/BACScoringWS") };
+            //    httpClient.DefaultRequestHeaders.Accept.Clear();
+            //    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //    string uriString = $"http://localhost/BACScoringWS/api/ScoringService/GetScore?id_cli={id_cli}&type_cli={type_cli}&user={user}&app={app}&referencia1={referencia1}&referencia2={referencia2}&token={token}";
+            //    HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(new Uri(uriString));
 
-                if (httpResponseMessage.IsSuccessStatusCode)
-                {
-                    var responseData = httpResponseMessage.Content.ReadAsStringAsync().Result;
-                    _BACObject = JsonConvert.DeserializeObject<ObjetoDevueltoScore>(responseData);
-                }
-            }
-            else
+            //    if (httpResponseMessage.IsSuccessStatusCode)
+            //    {
+            //        var responseData = httpResponseMessage.Content.ReadAsStringAsync().Result;
+            //        _BACObject = JsonConvert.DeserializeObject<ObjetoDevueltoScore>(responseData);
+            //    }
+            //}
+            //else
             {
                 ///////////////////////////////////
                 //DESCOMENTAR ESTO PARA PUBLICAR//
                 /////////////////////////////////
-
-                //var client = new WSAPCbot.WSAPCbotSoapClient();
-                //var response = client.BAC_APC_ScorePi(id_cli, type_cli, user, app, referencia1, referencia2, token);
-                //_BACObject = JsonConvert.DeserializeObject<ObjetoDevueltoScore>(response);
+                                 
+                var client = new WSAPCBot.WSAPCbotSoapClient();
+                var response = client.BAC_APC_ScorePi(id_cli, type_cli, user, app, referencia1, referencia2, token);
+                _BACObject = JsonConvert.DeserializeObject<ObjetoDevueltoScore>(response);
             }
 
             return _BACObject;
