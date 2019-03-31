@@ -189,8 +189,9 @@ function ObtenerResultadosAnualidad(e,formulario='') {
         async : false,
         success: function (data) {
             if (data['statusCode']) {
-                $('#resultadosContainer'+formulario).html(data['resultadosHtml']);
+                $('#resultadosContainer' + formulario).html(data['resultadosHtml']);
             }
+           
         },
         error: function (data, status, xhr) {
             GenerarErrorAlerta("Se produjo un error: " + data + " ", + status, 'error');
@@ -379,7 +380,7 @@ function ObtenerArrayDeResultados(formulario='') {
     return resultadoArray;
 }
 
-function ResetView() {
+function ResetViewAnualidad() {
     LimpiarTabla('#resultadosDeVariables');
 
     $('#AnualidadEvalForm').trigger('reset');
@@ -387,6 +388,8 @@ function ResetView() {
     $('#resultadosContainer').html("");
 }
 
-function ResetForm(e) {
+function ResetFormAnualidad(e) {
     e.stopPropagation();
+
+    ResetViewAnualidad();
 }

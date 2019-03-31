@@ -10,7 +10,7 @@ $(document).ready(function () {
         locale: 'es',
         maxDate: hoy,
         defaultDate: hoy,
-        daysOfWeekDisabled: [0, 6],
+       // daysOfWeekDisabled: [0, 6],
         format: 'YYYY-MM-DD',
         ignoreReadonly: true,
         icons: {
@@ -357,10 +357,19 @@ function GuardarTasa(e,formulario='') {
     }
 }
 
+function ClearFieldsTasas() {
+
+    $("#TasaAnualizadaActual").val(0);
+    $("#Observacion").val("");
+
+}
+
 function ResetViewTasas() {
     LimpiarTabla('#resultadosDeVariables');
 
     $('#ReversionForm').trigger('reset');
+
+    ClearFieldsTasas();
     $('#resultadosContainer').html("");
 }
 
