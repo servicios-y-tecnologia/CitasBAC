@@ -366,6 +366,8 @@ namespace appcitas.Controllers
                         if (_anualidad.Count > 0)
                             _context.Anualidades.Remove(_anualidad[0]);
 
+                        _context.Combos.Remove(Mapper.Map<ComboDto,Combo>(combo));
+
                         combo.Accion = 0;
                         combo.Mensaje = "Proceso completado con errores! , volver a intentar";
                     }

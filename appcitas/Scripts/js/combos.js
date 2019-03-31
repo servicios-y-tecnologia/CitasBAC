@@ -203,7 +203,7 @@ function GuardarCombo(e) {
                     dataType: 'JSON',
                     async: false,
                     success: function (data) {
-                        debugger;
+                       // debugger;
                         if (data['ComboId'] !== '') {
                             _ComboId = data['ComboId'];
                             // $('#resultadosContainer').html(data['resultadosHtml']);
@@ -218,72 +218,49 @@ function GuardarCombo(e) {
 
 
 
-                if (_ComboId !== '') {
-                    //  debugger;
-                    switch (primero.toUpperCase()) {
-                        case "_ADICIONAL":
-                        case "_ANUALIDADTITULAR":
-                            GuardarAnualidad(e, primero);
-                            break;
-                        case "_REVERSIÓN2":
-                        case "_REVERSIÓN1":
-                        case "_REVERSIÓNSG":
-                        case "_REVERSIÓNMORA":
-                            GuardarReversion(e, primero);
-                            break;
-                        case "_TASA":
-                            GuardarTasa(e, primero);
-                            break;
+                try {
+                    if (_ComboId !== '') {
+                        //  debugger;
+                        switch (primero.toUpperCase()) {
+                            case "_ADICIONAL":
+                            case "_ANUALIDADTITULAR":
+                                GuardarAnualidad(e, primero);
+                                break;
+                            case "_REVERSIÓN2":
+                            case "_REVERSIÓN1":
+                            case "_REVERSIÓNSG":
+                            case "_REVERSIÓNMORA":
+                                GuardarReversion(e, primero);
+                                break;
+                            case "_TASA":
+                                GuardarTasa(e, primero);
+                                break;
+                        }
+
+                        switch (segundo.toUpperCase()) {
+                            case "_ADICIONAL":
+                            case "_ANUALIDADTITULAR":
+                                GuardarAnualidad(e, segundo);
+                                break;
+                            case "_REVERSIÓN2":
+                            case "_REVERSIÓN1":
+                            case "_REVERSIÓNSG":
+                            case "_REVERSIÓNMORA":
+                                GuardarReversion(e, segundo);
+                                break;
+                            case "_TASA":
+                                GuardarTasa(e, segundo);
+                                break;
+                        }
+
                     }
 
-                    switch (segundo.toUpperCase()) {
-                        case "_ADICIONAL":
-                        case "_ANUALIDADTITULAR":
-                            GuardarAnualidad(e, segundo);
-                            break;
-                        case "_REVERSIÓN2":
-                        case "_REVERSIÓN1":
-                        case "_REVERSIÓNSG":
-                        case "_REVERSIÓNMORA":
-                            GuardarReversion(e, segundo);
-                            break;
-                        case "_TASA":
-                            GuardarTasa(e, segundo);
-                            break;
+                } catch (e) {
+                    console.log(e);
+                }              
 
-                    }
+                validaprocesocombo();
 
-                    validaprocesocombo();
-                    //$.ajax({
-                    //    type: 'POST',
-                    //    url: urljs + 'EvaluacionCombo/ValidaProcesoCombo/',
-                    //    data: JSON.stringify({ ComboId: _ComboId }),
-                    //    contentType: 'application/json;',
-                    //    dataType: 'JSON',
-                    //    async: false,
-                    //    success: function (data) {
-                    //        debugger;
-                    //        if (data.Accion) {
-                    //            //_ComboId = data['ComboId'];
-                    //            $("#ComboId").val(_ComboId);
-                    //            bootbox.alert(data.Mensaje);
-
-                    //            // $('#resultadosContainer').html(data['resultadosHtml']);
-                    //        }
-                    //        else {
-                    //            GenerarErrorAlerta("Se produjo un error: " + data.Mensaje + " ", 'error');
-                    //            goAlert();
-                    //        }
-                    //    },
-                    //    error: function (data, status, xhr) {
-                    //        GenerarErrorAlerta("Se produjo un error: " + data + " ", + status, 'error');
-                    //        goAlert();
-                    //        return;
-                    //    }
-                    //});
-
-                    // bootbox.alert("Datos Guardados Satisfactoriamente");
-                }
             }
             else {
                 bootbox.alert("El combo ya se ha generado, intente generando uno nuevo!");
