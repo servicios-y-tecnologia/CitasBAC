@@ -644,15 +644,18 @@ namespace appcitas.Controllers
 
         [HttpPost]
         //public async Task<ActionResult> ObtenerResultadosAnualidad(List<AnualidadVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario = "")
-        public ActionResult ObtenerResultadosAnualidad(List<AnualidadVariableEvaluadaDto> dataList, string clasificacion, decimal limite,string id_cli, string formulario="")
+        public async Task<ActionResult> ObtenerResultadosAnualidad(List<AnualidadVariableEvaluadaDto> dataList, string clasificacion, decimal limite,string id_cli, string formulario="")
         {
             var model = new List<AnualidadResultadoObtenidoDto>();
 
 
             try
             {
-                ViewBag.Buro = /*await*/ EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
-                StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
+                //ViewBag.Buro = /*await*/ EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
+                //StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
+
+                ViewBag.Buro = await EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
+               StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
 
 
                 var codegroup = dataList.GroupBy(x => x.CodeGroupVariable);
@@ -712,8 +715,14 @@ namespace appcitas.Controllers
             }
             catch (Exception ex)
             {
-                var msj = ex.Message;
-                //throw;
+                return Json(new
+                {
+                    statusCode = 1,
+                    statusMessage = ex.Message,
+                    resultadosHtml = "<div class=\"alert alert-danger\"><strong> Genero un error: "
+                  + ex.Message + "  </strong> "
+                  + "</div> "
+                });
             }
          
 
@@ -727,15 +736,18 @@ namespace appcitas.Controllers
 
         //public async Task<ActionResult> ObtenerResultadosReversion(List<VariableReversionDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario = "")
         [HttpPost]
-        public ActionResult ObtenerResultadosReversion(List<VariableReversionDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario="")
+        public async Task<ActionResult> ObtenerResultadosReversion(List<VariableReversionDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario="")
         {
             var listaDeResultados = new List<ResultadoReversionDto>();
 
 
             try
             {
-                ViewBag.Buro = /*await*/ EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
-      StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
+                //          ViewBag.Buro = /*await*/ EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
+                //StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
+
+                ViewBag.Buro = await EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
+                StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
 
                 var codegroup = dataList.GroupBy(x => x.CodeGroupVariable);
 
@@ -785,10 +797,14 @@ namespace appcitas.Controllers
             catch (Exception ex)
             {
 
-                var tmp = new List<AnualidadResultadoObtenidoDto>()
-                { new AnualidadResultadoObtenidoDto { Accion = 0, Mensaje = ex.Message.ToString() } };
-                // var lista = new List<object>() { tmp };
-                return Json(tmp, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    statusCode = 1,
+                    statusMessage = ex.Message,
+                    resultadosHtml = "<div class=\"alert alert-danger\"><strong> Genero un error: "
+                    + ex.Message + "  </strong> "
+                    + "</div> "
+                });
             }
 
      
@@ -806,7 +822,7 @@ namespace appcitas.Controllers
 
         //public async Task<ActionResult> ObtenerResultadosTasa(List<TasaVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario)
         [HttpPost]
-        public ActionResult ObtenerResultadosTasa(List<TasaVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario)
+        public async Task<ActionResult> ObtenerResultadosTasa(List<TasaVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario)
         {
             var listaDeResultados = new List<TasaResultadoDto>();
 
@@ -867,10 +883,14 @@ namespace appcitas.Controllers
             }
             catch (Exception ex)
             {
-                var tmp = new List<AnualidadResultadoObtenidoDto>()
-                { new AnualidadResultadoObtenidoDto { Accion = 0, Mensaje = ex.Message.ToString() } };
-                // var lista = new List<object>() { tmp };
-                return Json(tmp, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    statusCode = 1,
+                    statusMessage = ex.Message,
+                    resultadosHtml = "<div class=\"alert alert-danger\"><strong> Genero un error: "
+                     + ex.Message + "  </strong> "
+                     + "</div> "
+                });
             }
    
 
