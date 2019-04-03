@@ -1,4 +1,4 @@
-﻿using appcitas.Context;
+using appcitas.Context;
 using appcitas.Dtos;
 using appcitas.Services;
 using System;
@@ -118,249 +118,262 @@ namespace appcitas.Controllers
                 var todasVariablesEvaluadas = new List<VariableReversionDto>();                
                 List<VariablesAEvaluar> variablesComparativas = new List<VariablesAEvaluar>();
 
-                foreach (var item in myData.Cargos)
+                if (myData.Cargos.Count > 0)
                 {
-                    var variablesPropias = _context.Variables.Where(x => x.OrigenId == "SRC2").ToList();
-                    Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
-
-                    switch (item.tipoReversion)
+                    foreach (var item in myData.Cargos)
                     {
-                        case "COM Informa":
-                            //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 3)
-                            //{
-                                variablesComparativas = ObtenerValoresComparativos("001", myData.Segmento);
-                                keyValuePairs.Add("Fecha1", item.FechaCargo);
-                                keyValuePairs.Add("Monto", item.monto);
-                                keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
-                            //}
-                            //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 3)
-                            //{
-                            //    var idParent = "002";
-                            //    var idChild = "011";
-                            //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
-                            //    keyValuePairs.Add("Fecha1", item.fechaCargo);
-                            //    keyValuePairs.Add("Monto", item.monto);
-                            //    keyValuePairs.Add("Limite", _BACObject.Limite);
-                            //}
-                            break;
-                        case "Mora":
-                            //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 1)
-                            //{
-                                variablesComparativas = ObtenerValoresComparativos("002", myData.Segmento);
-                                keyValuePairs.Add("Fecha1", item.FechaCargo);
-                                keyValuePairs.Add("Monto", item.monto);
-                                keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
-                            //}
-                            //else if (ObtenerRecurrencia(item.tipoReversion, 1, myData.cuenta) <= 1)
-                            //{
-                            //    var idParent = "002";
-                            //    var idChild = "012";
-                            //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
-                            //    keyValuePairs.Add("Fecha1", item.fechaCargo);
-                            //    keyValuePairs.Add("Monto", item.monto);
-                            //    keyValuePairs.Add("Limite", _BACObject.Limite);
-                            //}
-                            break;
-                        case "SG":
-                            //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 1)
-                            //{
-                                variablesComparativas = ObtenerValoresComparativos("003", myData.Segmento);
-                                keyValuePairs.Add("Fecha1", item.FechaCargo);
-                                keyValuePairs.Add("Monto", item.monto);
-                                keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
-                            //}
-                            //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 1)
-                            //{
-                            //    var idParent = "002";
-                            //    var idChild = "013";
-                            //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
-                            //    keyValuePairs.Add("Fecha1", item.fechaCargo);
-                            //    keyValuePairs.Add("Monto", item.monto);
-                            //    keyValuePairs.Add("Limite", _BACObject.Limite);
-                            //}
-                            break;
-                        case "Ret. EC":
-                            //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 1)
-                            //{
-                                variablesComparativas = ObtenerValoresComparativos("004", myData.Segmento);
-                                keyValuePairs.Add("Fecha1", item.FechaCargo);
-                                keyValuePairs.Add("Monto", item.monto);
-                                keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
-                            ////}
-                            //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 1)
-                            //{
-                            //    var idParent = "002";
-                            //    var idChild = "014";
-                            //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
-                            //    keyValuePairs.Add("Fecha1", item.fechaCargo);
-                            //    keyValuePairs.Add("Monto", item.monto);
-                            //    keyValuePairs.Add("Limite", _BACObject.Limite);
-                            //}
-                            break;
-                        case "Cargo Compra de saldo":
-                            //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 1)
-                            //{
-                                variablesComparativas = ObtenerValoresComparativos("005", myData.Segmento);
-                                keyValuePairs.Add("Fecha1", item.FechaCargo);
-                                keyValuePairs.Add("Monto", item.monto);
-                                keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
-                            //}
-                            //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 1)
-                            //{
-                            //    var idParent = "002";
-                            //    var idChild = "015";
-                            //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
-                            //    keyValuePairs.Add("Fecha1", item.fechaCargo);
-                            //    keyValuePairs.Add("Monto", item.monto);
-                            //    keyValuePairs.Add("Limite", _BACObject.Limite);
-                            //}
-                            break;
-                        case "Cargo Tasa cero":
-                            //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 1)
-                            //{
-                                variablesComparativas = ObtenerValoresComparativos("006", myData.Segmento);
-                                keyValuePairs.Add("Fecha1", item.FechaCargo);
-                                keyValuePairs.Add("Monto", item.monto);
-                                keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
-                            //}
-                            //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 1)
-                            //{
-                            //    var idParent = "002";
-                            //    var idChild = "016";
-                            //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
-                            //    keyValuePairs.Add("Fecha1", item.fechaCargo);
-                            //    keyValuePairs.Add("Monto", item.monto);
-                            //    keyValuePairs.Add("Limite", _BACObject.Limite);
-                            //}
-                            break;
-                        case "Rep. x Deterioro":
-                            //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 1)
-                            //{
-                                variablesComparativas = ObtenerValoresComparativos("007", myData.Segmento);
-                                keyValuePairs.Add("Fecha1", item.FechaCargo);
-                                keyValuePairs.Add("Monto", item.monto);
-                                keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
-                            //}
-                            //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 1)
-                            //{
-                            //    var idParent = "002";
-                            //    var idChild = "017";
-                            //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
-                            //    keyValuePairs.Add("Fecha1", item.fechaCargo);
-                            //    keyValuePairs.Add("Monto", item.monto);
-                            //    keyValuePairs.Add("Limite", _BACObject.Limite);
-                            //}
-                            break;
-                        case "Anualidad Diferida":
-                            //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 2)
-                            //{
-                                variablesComparativas = ObtenerValoresComparativos("008", myData.Segmento);
-                                keyValuePairs.Add("Fecha1", item.FechaCargo);
-                                keyValuePairs.Add("Monto", item.monto);
-                                keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
-                            //}
-                            //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 2)
-                            //{
-                            //    var idParent = "002";
-                            //    var idChild = "018";
-                            //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
-                            //    keyValuePairs.Add("Fecha1", item.fechaCargo);
-                            //    keyValuePairs.Add("Monto", item.monto);
-                            //    keyValuePairs.Add("Limite", _BACObject.Limite);
-                            //}
-                            break;
-                        case "Reversion PRF":
-                            //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 3)
-                            //{
-                                variablesComparativas = ObtenerValoresComparativos("009", myData.Segmento);
-                                keyValuePairs.Add("Fecha1", item.FechaCargo);
-                                keyValuePairs.Add("Monto", item.monto);
-                                keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
-                            //}
-                            //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 3)
-                            //{
-                            //    var idParent = "002";
-                            //    var idChild = "019";
-                            //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
-                            //    keyValuePairs.Add("Fecha1", item.fechaCargo);
-                            //    keyValuePairs.Add("Monto", item.monto);
-                            //    keyValuePairs.Add("Limite", _BACObject.Limite);
-                            //}
-                            break;
-                        case "Cargo Retiro Efectivo":
-                            //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 1)
-                            //{
-                                variablesComparativas = ObtenerValoresComparativos("010", myData.Segmento);
-                                keyValuePairs.Add("Fecha1", item.FechaCargo);
-                                keyValuePairs.Add("Monto", item.monto);
-                                keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
-                            //}
-                            //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 1)
-                            //{
-                            //    var idParent = "002";
-                            //    var idChild = "020";
-                            //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
-                            //    keyValuePairs.Add("Fecha1", item.fechaCargo);
-                            //    keyValuePairs.Add("Monto", item.monto);
-                            //    keyValuePairs.Add("Limite", _BACObject.Limite);
-                            //}
-                            break;
-                        default:
-                            break;
-                    }
-
-                    if (_BACObject != null && variablesComparativas != null)
-                    {
-                        PropertyInfo[] properties = typeof(dataList).GetProperties();
-
-                        foreach (var var1 in variablesComparativas)
+                        if (Convert.ToDecimal(item.monto) > 0)
                         {
-                            switch (var1.Variable.OrigenId)
+                            var variablesPropias = _context.Variables.Where(x => x.OrigenId == "SRC2").ToList();
+                            Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
+
+                            switch (item.tipoReversion)
                             {
-                                case "SRC1":
-                                    foreach (var property in properties)
-                                    {
-                                        if (var1.VariableNombre == property.Name)
-                                        {
-                                            if (var1.ValorAEvaluar.Contains("{"))
-                                            {
-                                                EvaluarValoresDeLista(_BACObject.dataList.FirstOrDefault(), ref variablesEvaluadas, var1, property, item.NumeroCargo);
-                                            }
-                                            else if (!var1.ValorAEvaluar.Contains("["))
-                                            {
-                                                EvaluarOtrosValores(_BACObject.dataList.FirstOrDefault(), ref variablesEvaluadas, var1, property, item.NumeroCargo);
-                                            }
-                                            else if (var1.ValorAEvaluar.Contains("["))
-                                            {
-                                                EvaluarValoresDeFormula(_BACObject.dataList.FirstOrDefault(), ref variablesEvaluadas, var1, property, item.monto, item.NumeroCargo);
-                                            }
-                                        }
-                                    }
+                                case "COM Informa":
+                                    //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 3)
+                                    //{
+                                    variablesComparativas = ObtenerValoresComparativos("001", myData.Segmento);
+                                    keyValuePairs.Add("Fecha1", item.FechaCargo);
+                                    keyValuePairs.Add("Monto", item.monto);
+                                    keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
+                                    //}
+                                    //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 3)
+                                    //{
+                                    //    var idParent = "002";
+                                    //    var idChild = "011";
+                                    //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
+                                    //    keyValuePairs.Add("Fecha1", item.fechaCargo);
+                                    //    keyValuePairs.Add("Monto", item.monto);
+                                    //    keyValuePairs.Add("Limite", _BACObject.Limite);
+                                    //}
                                     break;
-                                case "SRC2":
-                                    foreach (var v in variablesPropias)
-                                    {
-                                        if (var1.ValorAEvaluar.Contains("{"))
-                                        {
-                                            EvaluarValoresDeLista(ref variablesEvaluadas, var1, Mapper.Map<Variable, VariableDto>(v), _BACObject.dataList.FirstOrDefault(), keyValuePairs, item.NumeroCargo);
-                                        }
-                                        else if (!var1.ValorAEvaluar.Contains("["))
-                                        {
-                                            EvaluarOtrosValores(_BACObject.dataList.FirstOrDefault(), ref variablesEvaluadas, keyValuePairs, var1, v, item.NumeroCargo);
-                                        }
-                                        else if (var1.ValorAEvaluar.Contains("["))
-                                        {
-                                            EvaluarValoresDeFormula(_BACObject.dataList.FirstOrDefault(), ref variablesEvaluadas, keyValuePairs, var1, v, item.NumeroCargo);
-                                        }
-                                    }
+                                case "Mora":
+                                    //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 1)
+                                    //{
+                                    variablesComparativas = ObtenerValoresComparativos("002", myData.Segmento);
+                                    keyValuePairs.Add("Fecha1", item.FechaCargo);
+                                    keyValuePairs.Add("Monto", item.monto);
+                                    keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
+                                    //}
+                                    //else if (ObtenerRecurrencia(item.tipoReversion, 1, myData.cuenta) <= 1)
+                                    //{
+                                    //    var idParent = "002";
+                                    //    var idChild = "012";
+                                    //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
+                                    //    keyValuePairs.Add("Fecha1", item.fechaCargo);
+                                    //    keyValuePairs.Add("Monto", item.monto);
+                                    //    keyValuePairs.Add("Limite", _BACObject.Limite);
+                                    //}
+                                    break;
+                                case "SG":
+                                    //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 1)
+                                    //{
+                                    variablesComparativas = ObtenerValoresComparativos("003", myData.Segmento);
+                                    keyValuePairs.Add("Fecha1", item.FechaCargo);
+                                    keyValuePairs.Add("Monto", item.monto);
+                                    keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
+                                    //}
+                                    //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 1)
+                                    //{
+                                    //    var idParent = "002";
+                                    //    var idChild = "013";
+                                    //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
+                                    //    keyValuePairs.Add("Fecha1", item.fechaCargo);
+                                    //    keyValuePairs.Add("Monto", item.monto);
+                                    //    keyValuePairs.Add("Limite", _BACObject.Limite);
+                                    //}
+                                    break;
+                                case "Ret. EC":
+                                    //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 1)
+                                    //{
+                                    variablesComparativas = ObtenerValoresComparativos("004", myData.Segmento);
+                                    keyValuePairs.Add("Fecha1", item.FechaCargo);
+                                    keyValuePairs.Add("Monto", item.monto);
+                                    keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
+                                    ////}
+                                    //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 1)
+                                    //{
+                                    //    var idParent = "002";
+                                    //    var idChild = "014";
+                                    //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
+                                    //    keyValuePairs.Add("Fecha1", item.fechaCargo);
+                                    //    keyValuePairs.Add("Monto", item.monto);
+                                    //    keyValuePairs.Add("Limite", _BACObject.Limite);
+                                    //}
+                                    break;
+                                case "Cargo Compra de saldo":
+                                    //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 1)
+                                    //{
+                                    variablesComparativas = ObtenerValoresComparativos("005", myData.Segmento);
+                                    keyValuePairs.Add("Fecha1", item.FechaCargo);
+                                    keyValuePairs.Add("Monto", item.monto);
+                                    keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
+                                    //}
+                                    //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 1)
+                                    //{
+                                    //    var idParent = "002";
+                                    //    var idChild = "015";
+                                    //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
+                                    //    keyValuePairs.Add("Fecha1", item.fechaCargo);
+                                    //    keyValuePairs.Add("Monto", item.monto);
+                                    //    keyValuePairs.Add("Limite", _BACObject.Limite);
+                                    //}
+                                    break;
+                                case "Cargo Tasa cero":
+                                    //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 1)
+                                    //{
+                                    variablesComparativas = ObtenerValoresComparativos("006", myData.Segmento);
+                                    keyValuePairs.Add("Fecha1", item.FechaCargo);
+                                    keyValuePairs.Add("Monto", item.monto);
+                                    keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
+                                    //}
+                                    //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 1)
+                                    //{
+                                    //    var idParent = "002";
+                                    //    var idChild = "016";
+                                    //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
+                                    //    keyValuePairs.Add("Fecha1", item.fechaCargo);
+                                    //    keyValuePairs.Add("Monto", item.monto);
+                                    //    keyValuePairs.Add("Limite", _BACObject.Limite);
+                                    //}
+                                    break;
+                                case "Rep. x Deterioro":
+                                    //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 1)
+                                    //{
+                                    variablesComparativas = ObtenerValoresComparativos("007", myData.Segmento);
+                                    keyValuePairs.Add("Fecha1", item.FechaCargo);
+                                    keyValuePairs.Add("Monto", item.monto);
+                                    keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
+                                    //}
+                                    //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 1)
+                                    //{
+                                    //    var idParent = "002";
+                                    //    var idChild = "017";
+                                    //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
+                                    //    keyValuePairs.Add("Fecha1", item.fechaCargo);
+                                    //    keyValuePairs.Add("Monto", item.monto);
+                                    //    keyValuePairs.Add("Limite", _BACObject.Limite);
+                                    //}
+                                    break;
+                                case "Anualidad Diferida":
+                                    //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 2)
+                                    //{
+                                    variablesComparativas = ObtenerValoresComparativos("008", myData.Segmento);
+                                    keyValuePairs.Add("Fecha1", item.FechaCargo);
+                                    keyValuePairs.Add("Monto", item.monto);
+                                    keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
+                                    //}
+                                    //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 2)
+                                    //{
+                                    //    var idParent = "002";
+                                    //    var idChild = "018";
+                                    //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
+                                    //    keyValuePairs.Add("Fecha1", item.fechaCargo);
+                                    //    keyValuePairs.Add("Monto", item.monto);
+                                    //    keyValuePairs.Add("Limite", _BACObject.Limite);
+                                    //}
+                                    break;
+                                case "Reversion PRF":
+                                    //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 3)
+                                    //{
+                                    variablesComparativas = ObtenerValoresComparativos("009", myData.Segmento);
+                                    keyValuePairs.Add("Fecha1", item.FechaCargo);
+                                    keyValuePairs.Add("Monto", item.monto);
+                                    keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
+                                    //}
+                                    //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 3)
+                                    //{
+                                    //    var idParent = "002";
+                                    //    var idChild = "019";
+                                    //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
+                                    //    keyValuePairs.Add("Fecha1", item.fechaCargo);
+                                    //    keyValuePairs.Add("Monto", item.monto);
+                                    //    keyValuePairs.Add("Limite", _BACObject.Limite);
+                                    //}
+                                    break;
+                                case "Cargo Retiro Efectivo":
+                                    //if (ObtenerRecurrencia(item.tipoReversion, 6, myData.cuenta) <= 1)
+                                    //{
+                                    variablesComparativas = ObtenerValoresComparativos("010", myData.Segmento);
+                                    keyValuePairs.Add("Fecha1", item.FechaCargo);
+                                    keyValuePairs.Add("Monto", item.monto);
+                                    keyValuePairs.Add("Limite", _BACObject.dataList.FirstOrDefault().Limite);
+                                    //}
+                                    //else if (ObtenerRecurrencia(item.tipoReversion, 12, myData.cuenta) <= 1)
+                                    //{
+                                    //    var idParent = "002";
+                                    //    var idChild = "020";
+                                    //    variablesComparativas = ObtenerValoresComparativos(idParent, idChild, myData.segmento);
+                                    //    keyValuePairs.Add("Fecha1", item.fechaCargo);
+                                    //    keyValuePairs.Add("Monto", item.monto);
+                                    //    keyValuePairs.Add("Limite", _BACObject.Limite);
+                                    //}
                                     break;
                                 default:
                                     break;
                             }
+
+                            if (_BACObject != null && variablesComparativas != null)
+                            {
+                                PropertyInfo[] properties = typeof(dataList).GetProperties();
+
+                                foreach (var var1 in variablesComparativas)
+                                {
+                                    switch (var1.Variable.OrigenId)
+                                    {
+                                        case "SRC1":
+                                            foreach (var property in properties)
+                                            {
+                                                if (var1.VariableNombre == property.Name)
+                                                {
+                                                    if (var1.ValorAEvaluar.Contains("{"))
+                                                    {
+                                                        EvaluarValoresDeLista(_BACObject.dataList.FirstOrDefault(), ref variablesEvaluadas, var1, property, item.NumeroCargo);
+                                                    }
+                                                    else if (!var1.ValorAEvaluar.Contains("["))
+                                                    {
+                                                        EvaluarOtrosValores(_BACObject.dataList.FirstOrDefault(), ref variablesEvaluadas, var1, property, item.NumeroCargo);
+                                                    }
+                                                    else if (var1.ValorAEvaluar.Contains("["))
+                                                    {
+                                                        EvaluarValoresDeFormula(_BACObject.dataList.FirstOrDefault(), ref variablesEvaluadas, var1, property, item.monto, item.NumeroCargo);
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "SRC2":
+                                            foreach (var v in variablesPropias)
+                                            {
+                                                if (var1.ValorAEvaluar.Contains("{"))
+                                                {
+                                                    EvaluarValoresDeLista(ref variablesEvaluadas, var1, Mapper.Map<Variable, VariableDto>(v), _BACObject.dataList.FirstOrDefault(), keyValuePairs, item.NumeroCargo);
+                                                }
+                                                else if (!var1.ValorAEvaluar.Contains("["))
+                                                {
+                                                    EvaluarOtrosValores(_BACObject.dataList.FirstOrDefault(), ref variablesEvaluadas, keyValuePairs, var1, v, item.NumeroCargo);
+                                                }
+                                                else if (var1.ValorAEvaluar.Contains("["))
+                                                {
+                                                    EvaluarValoresDeFormula(_BACObject.dataList.FirstOrDefault(), ref variablesEvaluadas, keyValuePairs, var1, v, item.NumeroCargo);
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-
+                else
+                {
+                    List<VariableReversionDto> tmp = new List<VariableReversionDto>()
+                    {
+                        new VariableReversionDto { Accion = 0, Mensaje = "No se detectaron datos para reversión" }
+                    };
+                    return Json(tmp, JsonRequestBehavior.AllowGet);
+                }
                 return Json(variablesEvaluadas, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -373,16 +386,16 @@ namespace appcitas.Controllers
             }
         }
 
-        //public async Task<ActionResult> ObtenerResultados(List<VariableReversionDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario = "")
         [HttpPost]
-        public ActionResult ObtenerResultados(List<VariableReversionDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario="")
+        public async Task<ActionResult> ObtenerResultados(List<VariableReversionDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario = "")
+        //public ActionResult ObtenerResultados(List<VariableReversionDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario="")
         {
             var listaDeResultados = new List<ResultadoReversionDto>();
 
             try
             {
 
-                ViewBag.Buro = /*await*/ EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
+                ViewBag.Buro = await EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
           StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
 
                 var codegroup = dataList.GroupBy(x => x.CodeGroupVariable);
