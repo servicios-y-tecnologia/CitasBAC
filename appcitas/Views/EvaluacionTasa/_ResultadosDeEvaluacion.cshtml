@@ -11,7 +11,7 @@ else
     if (Model != null && Model.Count() > 0)
     {
         <div class="form-group">
-            <label for="ResultadosCbx" class="control-label">Resultado Obtenido</label>
+            <label for="ResultadosCbx" class="control-label">Resultados Obtenidos</label>
             @Html.DropDownList("ResultadosCbx", new SelectList(Model, "ItemDeReclamoId", "ItemDeReclamoDescripcion"), "seleccione un resultado", new { @class = "form-control" })
         </div>
     }
