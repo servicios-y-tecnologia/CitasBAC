@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
     checkUserAccess('MTR030');
 });
 
@@ -483,6 +483,8 @@ function ClearFieldsReversion() {
     //$('#TipoReversion_6').val("");
     //$('#FechaCargo_6').datepicker().datepicker('setDate', new Date());
     //$('#Monto_6').val("0.00");
+
+    $('#Observacion').val('');
 }
 
 function ResetViewReversion() {
