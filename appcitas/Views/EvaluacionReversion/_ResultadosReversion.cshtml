@@ -11,7 +11,7 @@ else
     if (@Model != null && @Model.Count() > 0)
     {
         <div class="form-group">
-            <label for="CBX" class="control-label">Resultados</label>
+            <label for="CBX" class="control-label">Resultado Obtenido</label>
             @Html.DropDownList("Resultados", new SelectList(@Model, "ResultadoReversionId", "ResultadoReversionDescripcion"), "seleccione un resultado", new { @class = "form-control", @onChange = "ResultadosCbxChange(event)" })
         </div>
     }
