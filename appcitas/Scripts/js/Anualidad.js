@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
     checkUserAccess('MTR020');
     CheckUserInfo();
 });
@@ -386,6 +386,7 @@ function ResetViewAnualidad() {
     $('#AnualidadEvalForm').trigger('reset');
 
     $('#resultadosContainer').html("");
+    $('#Observacion').val('');
 }
 
 function ResetFormAnualidad(e) {
