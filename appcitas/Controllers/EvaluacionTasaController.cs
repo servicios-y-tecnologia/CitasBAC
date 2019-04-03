@@ -218,7 +218,8 @@ namespace appcitas.Controllers
                 ViewBag.Buro = await EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
               StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
 
-                var codegroup = dataList.GroupBy(x => x.CodeGroupVariable);
+                var codegroup = dataList.GroupBy(x => new { x.ItemDeReclamoId, x.CodeGroupVariable });
+                //var codegroup = dataList.GroupBy(x => x.CodeGroupVariable);
                 //dataList.GroupBy(x => x.ItemDeReclamoId)
                 foreach (var item in codegroup)
                 {
@@ -226,8 +227,11 @@ namespace appcitas.Controllers
                     {
                         if (variable.CodeGroupVariable == null) { variable.GroupVariable = "AND"; }
                         if (variable.CodeGroupVariable == "null" || variable.CodeGroupVariable == "") { variable.GroupVariable = "AND"; }
-                        if (variable.EvaluacionCondicion && variable.GroupVariable == "AND")
+
+                        // si cumple la evaluacion no importa si es AND o OR, la cumplio
+                        if (variable.EvaluacionCondicion)
                         {
+                            // agregamos el resultado al combo
                             if (!listaDeResultados.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
                             {
                                 listaDeResultados.Add(new TasaResultadoDto
@@ -238,29 +242,61 @@ namespace appcitas.Controllers
                                 });
                             }
 
+                            // si es un OR ya no sigo evaluando porque una cumplio
+                            if (variable.GroupVariable == "OR")
+                                break;
                         }
-                        else if (variable.GroupVariable == "OR")
+                        else // no cumplio la condicion
                         {
-                            if (!listaDeResultados.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
+                            // si es un AND ya no sigo evaluando porque no cumplio
+                            if (variable.GroupVariable == "AND")
                             {
-                                listaDeResultados.Add(new TasaResultadoDto
+                                if (listaDeResultados.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
                                 {
-                                    ReclamoId = variable.ReclamoId,
-                                    ItemDeReclamoId = variable.ItemDeReclamoId,
-                                    ItemDeReclamoDescripcion = variable.ItemDeReclamoNombre
-                                });
-                            }
-                        }
-                        else
-                        {
-                            if (listaDeResultados.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
-                            {
-                                listaDeResultados.Remove(listaDeResultados.
-                                    FirstOrDefault(x =>
-                                    x.ItemDeReclamoId == variable.ItemDeReclamoId));
+                                    listaDeResultados.Remove(listaDeResultados.
+                                        FirstOrDefault(x =>
+                                        x.ItemDeReclamoId == variable.ItemDeReclamoId));
+                                }
                                 break;
                             }
+                            // si es un OR sigo evaluando
                         }
+
+                        //if (variable.EvaluacionCondicion && variable.GroupVariable == "AND")
+                        //{
+                        //    if (!listaDeResultados.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
+                        //    {
+                        //        listaDeResultados.Add(new TasaResultadoDto
+                        //        {
+                        //            ReclamoId = variable.ReclamoId,
+                        //            ItemDeReclamoId = variable.ItemDeReclamoId,
+                        //            ItemDeReclamoDescripcion = variable.ItemDeReclamoNombre
+                        //        });
+                        //    }
+
+                        //}
+                        //else if (variable.GroupVariable == "OR")
+                        //{
+                        //    if (!listaDeResultados.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
+                        //    {
+                        //        listaDeResultados.Add(new TasaResultadoDto
+                        //        {
+                        //            ReclamoId = variable.ReclamoId,
+                        //            ItemDeReclamoId = variable.ItemDeReclamoId,
+                        //            ItemDeReclamoDescripcion = variable.ItemDeReclamoNombre
+                        //        });
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (listaDeResultados.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
+                        //    {
+                        //        listaDeResultados.Remove(listaDeResultados.
+                        //            FirstOrDefault(x =>
+                        //            x.ItemDeReclamoId == variable.ItemDeReclamoId));
+                        //        break;
+                        //    }
+                        //}
                     }
                 }
 
@@ -1282,6 +1318,8 @@ namespace appcitas.Controllers
                 CondicionLogica = var1.CondicionLogica,
                 ValorActual = property.GetValue(_BACObject).ToString(),
                 ValorAEvaluar = var1.ValorAEvaluar,
+                CodeGroupVariable = var1.CodeGroupVariable,
+                GroupVariable = var1.GroupVariable,
                 Accion = 1,
                 Mensaje = "Se cargaron los datos correctamente",
                 EvaluacionCondicion = igual,
