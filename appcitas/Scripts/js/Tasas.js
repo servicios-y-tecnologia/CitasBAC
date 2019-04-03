@@ -1,4 +1,4 @@
-﻿var hoy = moment(new Date()).format('YYYY-MM-DD');
+var hoy = moment(new Date()).format('YYYY-MM-DD');
 
 
 $(document).ready(function () {
@@ -361,7 +361,8 @@ function ClearFieldsTasas() {
 
     $("#TasaAnualizadaActual").val(0);
     $("#Observacion").val("");
-
+    $("#Identidad").val("");
+    $("#NumeroTarjeta").val("");
 }
 
 function ResetViewTasas() {
