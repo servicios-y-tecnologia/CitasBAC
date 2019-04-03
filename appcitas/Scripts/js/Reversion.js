@@ -432,7 +432,9 @@ function OntenerArrayDeResultadosReversion(formulario='') {
     });
 
    
-    for (var i = 0; i < options.length; i++) {
+    //for (var i = 0; i < options.length; i++) {
+    // se pone desde 1 porque el item 0 es "Seleccione un Resultado"
+    for (var i = 1; i < options.length; i++) {
         //if ($('#CBX').val() === values[i]) {
         if ($('#Resultados' + formulario).val() === values[i]) {
             resultadoArray.push({
