@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,13 +84,13 @@ namespace appcitas.Services
         //public static List<ObjetoDevueltoHistorial> GetHistorial(string id_cli, int type_cli, string user, int app, int referencia1, string referencia2, string token)
         {
             ObjetoDevueltoHistorial _BACObject = null;
-            if (HttpContext.Current.IsDebuggingEnabled)
+            if (!HttpContext.Current.IsDebuggingEnabled)
             {
                 HttpClient httpClient = new HttpClient { BaseAddress = new Uri("http://localhost/BACScoringWS") };
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //string uriString = $"http://localhost/BACScoringWS/api/ScoringService/GetHistorial?id_cli={id_cli}&type_cli={type_cli}&user={user}&app={app}&referencia1={referencia1}&referencia2={referencia2}&token={token}";
-                string uriString = $"http://localhost:1734/api/ScoringService/GetHistorial?id_cli={id_cli}&type_cli={type_cli}&user={user}&app={app}&referencia1={referencia1}&referencia2={referencia2}&token={token}";
+                string uriString = $"http://localhost/BACScoringWS/api/ScoringService/GetHistorial?id_cli={id_cli}&type_cli={type_cli}&user={user}&app={app}&referencia1={referencia1}&referencia2={referencia2}&token={token}";
+                //string uriString = $"http://localhost:1734/api/ScoringService/GetHistorial?id_cli={id_cli}&type_cli={type_cli}&user={user}&app={app}&referencia1={referencia1}&referencia2={referencia2}&token={token}";
                 HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(new Uri(uriString));
 
                 if (httpResponseMessage.IsSuccessStatusCode)
@@ -148,13 +148,13 @@ namespace appcitas.Services
       //  public static ObjetoDevueltoScore GetScore(string id_cli, int type_cli, string user, int app, int referencia1, string referencia2, string token)
         {
             ObjetoDevueltoScore _BACObject = null;
-            if (HttpContext.Current.IsDebuggingEnabled)
+            if (!HttpContext.Current.IsDebuggingEnabled)
             {
                 HttpClient httpClient = new HttpClient { BaseAddress = new Uri("http://localhost/BACScoringWS") };
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //string uriString = $"http://localhost/BACScoringWS/api/ScoringService/GetScore?id_cli={id_cli}&type_cli={type_cli}&user={user}&app={app}&referencia1={referencia1}&referencia2={referencia2}&token={token}";
-                 string uriString = $"http://localhost:1734/api/ScoringService/GetScore?id_cli={id_cli}&type_cli={type_cli}&user={user}&app={app}&referencia1={referencia1}&referencia2={referencia2}&token={token}";
+                string uriString = $"http://localhost/BACScoringWS/api/ScoringService/GetScore?id_cli={id_cli}&type_cli={type_cli}&user={user}&app={app}&referencia1={referencia1}&referencia2={referencia2}&token={token}";
+                //string uriString = $"http://localhost:1734/api/ScoringService/GetScore?id_cli={id_cli}&type_cli={type_cli}&user={user}&app={app}&referencia1={referencia1}&referencia2={referencia2}&token={token}";
                 HttpResponseMessage httpResponseMessage = await  httpClient.GetAsync(new Uri(uriString));
 
                 if (httpResponseMessage.IsSuccessStatusCode)
