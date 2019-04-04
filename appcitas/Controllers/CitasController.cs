@@ -643,11 +643,10 @@ namespace appcitas.Controllers
         }
 
         [HttpPost]
-        //public async Task<ActionResult> ObtenerResultadosAnualidad(List<AnualidadVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario = "")
-        public async Task<ActionResult> ObtenerResultadosAnualidad(List<AnualidadVariableEvaluadaDto> dataList, string clasificacion, decimal limite,string id_cli, string formulario="")
+        public async Task<ActionResult> ObtenerResultadosAnualidad(List<AnualidadVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario = "")
+        //public async Task<ActionResult> ObtenerResultadosAnualidad(List<AnualidadVariableEvaluadaDto> dataList, string clasificacion, decimal limite,string id_cli, string formulario="")
         {
             var model = new List<AnualidadResultadoObtenidoDto>();
-
 
             try
             {
@@ -658,7 +657,8 @@ namespace appcitas.Controllers
                StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
 
 
-                var codegroup = dataList.GroupBy(x => x.CodeGroupVariable);
+                var codegroup = dataList.GroupBy(x => new { x.ItemDeReclamoId, x.CodeGroupVariable });
+                //var codegroup = dataList.GroupBy(x => x.CodeGroupVariable);
 
                 // foreach (var item in dataList.GroupBy(x => x.ItemDeReclamoId))
                 foreach (var item in codegroup)
@@ -667,8 +667,11 @@ namespace appcitas.Controllers
                     {
                         if (variable.CodeGroupVariable == null) { variable.GroupVariable = "AND"; }
                         if (variable.CodeGroupVariable == "null" || variable.CodeGroupVariable == "") { variable.GroupVariable = "AND"; }
-                        if (variable.EvaluacionCondicion && variable.GroupVariable == "AND")
+
+                        // si cumple la evaluacion no importa si es AND o OR, la cumplio
+                        if (variable.EvaluacionCondicion)
                         {
+                            // agregamos el resultado al combo
                             if (!model.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
                             {
                                 model.Add(new AnualidadResultadoObtenidoDto
@@ -678,29 +681,61 @@ namespace appcitas.Controllers
                                     ItemDeReclamoDescripcion = variable.ItemDeReclamoNombre
                                 });
                             }
+
+                            // si es un OR ya no sigo evaluando porque una cumplio
+                            if (variable.GroupVariable == "OR")
+                                break;
                         }
-                        else if (variable.GroupVariable == "OR")
+                        else // no cumplio la condicion
                         {
-                            if (!model.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
+                            // si es un AND ya no sigo evaluando porque no cumplio
+                            if (variable.GroupVariable == "AND")
                             {
-                                model.Add(new AnualidadResultadoObtenidoDto
+                                if (model.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
                                 {
-                                    ReclamoId = variable.ReclamoId,
-                                    ItemDeReclamoId = variable.ItemDeReclamoId,
-                                    ItemDeReclamoDescripcion = variable.ItemDeReclamoNombre
-                                });
-                            }
-                        }
-                        else
-                        {
-                            if (model.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
-                            {
-                                model.Remove(model.
-                                    FirstOrDefault(x =>
-                                    x.ItemDeReclamoId == variable.ItemDeReclamoId));
+                                    model.Remove(model.
+                                        FirstOrDefault(x =>
+                                        x.ItemDeReclamoId == variable.ItemDeReclamoId));
+                                }
                                 break;
                             }
+                            // si es un OR sigo evaluando
                         }
+
+                        //if (variable.EvaluacionCondicion && variable.GroupVariable == "AND")
+                        //{
+                        //    if (!model.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
+                        //    {
+                        //        model.Add(new AnualidadResultadoObtenidoDto
+                        //        {
+                        //            ReclamoId = variable.ReclamoId,
+                        //            ItemDeReclamoId = variable.ItemDeReclamoId,
+                        //            ItemDeReclamoDescripcion = variable.ItemDeReclamoNombre
+                        //        });
+                        //    }
+                        //}
+                        //else if (variable.GroupVariable == "OR")
+                        //{
+                        //    if (!model.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
+                        //    {
+                        //        model.Add(new AnualidadResultadoObtenidoDto
+                        //        {
+                        //            ReclamoId = variable.ReclamoId,
+                        //            ItemDeReclamoId = variable.ItemDeReclamoId,
+                        //            ItemDeReclamoDescripcion = variable.ItemDeReclamoNombre
+                        //        });
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (model.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
+                        //    {
+                        //        model.Remove(model.
+                        //            FirstOrDefault(x =>
+                        //            x.ItemDeReclamoId == variable.ItemDeReclamoId));
+                        //        break;
+                        //    }
+                        //}
                     }
                 }
 
@@ -734,9 +769,9 @@ namespace appcitas.Controllers
             });
         }
 
-        //public async Task<ActionResult> ObtenerResultadosReversion(List<VariableReversionDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario = "")
         [HttpPost]
-        public async Task<ActionResult> ObtenerResultadosReversion(List<VariableReversionDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario="")
+        public async Task<ActionResult> ObtenerResultadosReversion(List<VariableReversionDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario = "")
+        //public async Task<ActionResult> ObtenerResultadosReversion(List<VariableReversionDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario="")
         {
             var listaDeResultados = new List<ResultadoReversionDto>();
 
@@ -749,7 +784,8 @@ namespace appcitas.Controllers
                 ViewBag.Buro = await EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
                 StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
 
-                var codegroup = dataList.GroupBy(x => x.CodeGroupVariable);
+                var codegroup = dataList.GroupBy(x => new { x.ItemDeReclamoId, x.CodeGroupVariable });
+                //var codegroup = dataList.GroupBy(x => x.CodeGroupVariable);
 
                 // foreach (var item in dataList.GroupBy(x => x.ItemDeReclamoId))
                 foreach (var item in codegroup)
@@ -758,8 +794,11 @@ namespace appcitas.Controllers
                     {
                         if (variable.CodeGroupVariable == null) { variable.GroupVariable = "AND"; }
                         if (variable.CodeGroupVariable == "null" || variable.CodeGroupVariable == "") { variable.GroupVariable = "AND"; }
-                        if (variable.EvaluacionCondicion && variable.GroupVariable == "AND")
+
+                        // si cumple la evaluacion no importa si es AND o OR, la cumplio
+                        if (variable.EvaluacionCondicion)
                         {
+                            // agregamos el resultado al combo
                             if (!listaDeResultados.Any(x => x.ResultadoReversionDescripcion.Contains(variable.CargoNumero.ToString())))
                             {
                                 listaDeResultados.Add(new ResultadoReversionDto
@@ -769,28 +808,55 @@ namespace appcitas.Controllers
                                     ResultadoReversionDescripcion = "Reversar cargo numero: " + variable.CargoNumero
                                 });
                             }
+
+                            // si es un OR ya no sigo evaluando porque una cumplio
+                            if (variable.GroupVariable == "OR")
+                                break;
                         }
-                        else if (variable.GroupVariable == "OR")
+                        else // no cumplio la condicion
                         {
-                            if (!listaDeResultados.Any(x => x.ResultadoReversionDescripcion.Contains(variable.CargoNumero.ToString())))
+                            // si es un AND ya no sigo evaluando porque no cumplio
+                            if (variable.GroupVariable == "AND")
                             {
-                                listaDeResultados.Add(new ResultadoReversionDto
-                                {
-                                    CargoAReversar = variable.CargoNumero,
-                                    ResultadoReversionId = listaDeResultados.Count() + 1,
-                                    ResultadoReversionDescripcion = "Reversar cargo numero: " + variable.CargoNumero
-                                });
-                            }
-                        }
-                        else
-                        {
-                            if (listaDeResultados.Any(x => x.ResultadoReversionDescripcion.Contains(variable.CargoNumero.ToString())))
-                            {
-                                listaDeResultados.Remove(listaDeResultados.
-                                    FirstOrDefault(x => x.ResultadoReversionDescripcion.Contains(variable.CargoNumero.ToString())));
+                                listaDeResultados = new List<ResultadoReversionDto>();
                                 break;
                             }
+                            // si es un OR sigo evaluando
                         }
+
+                        //if (variable.EvaluacionCondicion && variable.GroupVariable == "AND")
+                        //{
+                        //    if (!listaDeResultados.Any(x => x.ResultadoReversionDescripcion.Contains(variable.CargoNumero.ToString())))
+                        //    {
+                        //        listaDeResultados.Add(new ResultadoReversionDto
+                        //        {
+                        //            CargoAReversar = variable.CargoNumero,
+                        //            ResultadoReversionId = listaDeResultados.Count() + 1,
+                        //            ResultadoReversionDescripcion = "Reversar cargo numero: " + variable.CargoNumero
+                        //        });
+                        //    }
+                        //}
+                        //else if (variable.GroupVariable == "OR")
+                        //{
+                        //    if (!listaDeResultados.Any(x => x.ResultadoReversionDescripcion.Contains(variable.CargoNumero.ToString())))
+                        //    {
+                        //        listaDeResultados.Add(new ResultadoReversionDto
+                        //        {
+                        //            CargoAReversar = variable.CargoNumero,
+                        //            ResultadoReversionId = listaDeResultados.Count() + 1,
+                        //            ResultadoReversionDescripcion = "Reversar cargo numero: " + variable.CargoNumero
+                        //        });
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (listaDeResultados.Any(x => x.ResultadoReversionDescripcion.Contains(variable.CargoNumero.ToString())))
+                        //    {
+                        //        listaDeResultados.Remove(listaDeResultados.
+                        //            FirstOrDefault(x => x.ResultadoReversionDescripcion.Contains(variable.CargoNumero.ToString())));
+                        //        break;
+                        //    }
+                        //}
                     }
                 }
             }
@@ -820,19 +886,19 @@ namespace appcitas.Controllers
             });
         }
 
-        //public async Task<ActionResult> ObtenerResultadosTasa(List<TasaVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario)
         [HttpPost]
-        public async Task<ActionResult> ObtenerResultadosTasa(List<TasaVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario)
+        public async Task<ActionResult> ObtenerResultadosTasa(List<TasaVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli, string formulario)
+        //public async Task<ActionResult> ObtenerResultadosTasa(List<TasaVariableEvaluadaDto> dataList, string clasificacion, decimal limite, string id_cli,string formulario)
         {
             var listaDeResultados = new List<TasaResultadoDto>();
 
             try
             {
-                ViewBag.Buro = /*await*/ EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
+                ViewBag.Buro = await EvaluarBuro.EsBuro(clasificacion, limite, id_cli, StaticStrings.type_cli, StaticStrings.user,
     StaticStrings.app, StaticStrings.referencia1, StaticStrings.referencia2, StaticStrings.token);
 
-
-                var codegroup = dataList.GroupBy(x => x.CodeGroupVariable);
+                var codegroup = dataList.GroupBy(x => new { x.ItemDeReclamoId, x.CodeGroupVariable });
+                //var codegroup = dataList.GroupBy(x => x.CodeGroupVariable);
 
                 //  foreach (var item in dataList.GroupBy(x => x.ItemDeReclamoId))
                 foreach (var item in codegroup)
@@ -841,8 +907,11 @@ namespace appcitas.Controllers
                     {
                         if (variable.CodeGroupVariable == null) { variable.GroupVariable = "AND"; }
                         if (variable.CodeGroupVariable == "null" || variable.CodeGroupVariable == "") { variable.GroupVariable = "AND"; }
-                        if (variable.EvaluacionCondicion && variable.GroupVariable == "AND")
+
+                        // si cumple la evaluacion no importa si es AND o OR, la cumplio
+                        if (variable.EvaluacionCondicion)
                         {
+                            // agregamos el resultado al combo
                             if (!listaDeResultados.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
                             {
                                 listaDeResultados.Add(new TasaResultadoDto
@@ -852,29 +921,61 @@ namespace appcitas.Controllers
                                     ItemDeReclamoDescripcion = variable.ItemDeReclamoNombre
                                 });
                             }
+
+                            // si es un OR ya no sigo evaluando porque una cumplio
+                            if (variable.GroupVariable == "OR")
+                                break;
                         }
-                        else if (variable.GroupVariable == "OR")
+                        else // no cumplio la condicion
                         {
-                            if (!listaDeResultados.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
+                            // si es un AND ya no sigo evaluando porque no cumplio
+                            if (variable.GroupVariable == "AND")
                             {
-                                listaDeResultados.Add(new TasaResultadoDto
+                                if (listaDeResultados.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
                                 {
-                                    ReclamoId = variable.ReclamoId,
-                                    ItemDeReclamoId = variable.ItemDeReclamoId,
-                                    ItemDeReclamoDescripcion = variable.ItemDeReclamoNombre
-                                });
-                            }
-                        }
-                        else
-                        {
-                            if (listaDeResultados.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
-                            {
-                                listaDeResultados.Remove(listaDeResultados.
-                                    FirstOrDefault(x =>
-                                    x.ItemDeReclamoId == variable.ItemDeReclamoId));
+                                    listaDeResultados.Remove(listaDeResultados.
+                                        FirstOrDefault(x =>
+                                        x.ItemDeReclamoId == variable.ItemDeReclamoId));
+                                }
                                 break;
                             }
+                            // si es un OR sigo evaluando
                         }
+
+                        //if (variable.EvaluacionCondicion && variable.GroupVariable == "AND")
+                        //{
+                        //    if (!listaDeResultados.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
+                        //    {
+                        //        listaDeResultados.Add(new TasaResultadoDto
+                        //        {
+                        //            ReclamoId = variable.ReclamoId,
+                        //            ItemDeReclamoId = variable.ItemDeReclamoId,
+                        //            ItemDeReclamoDescripcion = variable.ItemDeReclamoNombre
+                        //        });
+                        //    }
+                        //}
+                        //else if (variable.GroupVariable == "OR")
+                        //{
+                        //    if (!listaDeResultados.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
+                        //    {
+                        //        listaDeResultados.Add(new TasaResultadoDto
+                        //        {
+                        //            ReclamoId = variable.ReclamoId,
+                        //            ItemDeReclamoId = variable.ItemDeReclamoId,
+                        //            ItemDeReclamoDescripcion = variable.ItemDeReclamoNombre
+                        //        });
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (listaDeResultados.Any(x => x.ItemDeReclamoId == variable.ItemDeReclamoId))
+                        //    {
+                        //        listaDeResultados.Remove(listaDeResultados.
+                        //            FirstOrDefault(x =>
+                        //            x.ItemDeReclamoId == variable.ItemDeReclamoId));
+                        //        break;
+                        //    }
+                        //}
                     }
                 }
 

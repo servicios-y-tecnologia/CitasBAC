@@ -1,4 +1,4 @@
-var hoy = moment(new Date()).format('YYYY-MM-DD');
+﻿var hoy = moment(new Date()).format('YYYY-MM-DD');
 
 
 $(document).ready(function () {
@@ -248,14 +248,14 @@ function ObtenerArrayDeResultados(formulario='') {
         if ($('#ResultadosCbx' + formulario).val() === values[i]) {
             resultadoArray.push({
                 ResultadoReversionId: values[i],
-                ResultadoReversionDescripcion: options[i],
+                ResultadoReversionDescripcion: $('#ResultadosCbx' + formulario+' :selected').text(),
                 ResultadoAceptado: true
             });
         }
         else {
             resultadoArray.push({
                 ResultadoReversionId: values[i],
-                ResultadoReversionDescripcion: options[i],
+                ResultadoReversionDescripcion: options[i].innerText,
                 ResultadoAceptado: false
             });
         }

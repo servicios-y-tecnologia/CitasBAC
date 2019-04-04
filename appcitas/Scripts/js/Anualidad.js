@@ -1,4 +1,4 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     checkUserAccess('MTR020');
     CheckUserInfo();
 });
@@ -185,7 +185,7 @@ function ObtenerResultadosAnualidad(e,formulario='') {
         data: JSON.stringify({ dataList: myData, clasificacion: $('#Clasificacion').val(), limite: $('#Limite').val(), id_cli: $('#Identidad').val(), formulario: formulario }),
         contentType: 'application/json;',
         dataType: 'JSON',
-        traditional: true,
+        //traditional: true,
         async : false,
         success: function (data) {
             if (data['statusCode']) {
@@ -206,7 +206,7 @@ function GuardarAnualidad(e,formulario='') {
     var path = '/EvaluacionAnualidad/GuardarAnualidad/';
     var form = $('#AnualidadEvalForm' + formulario);
     var token = $('input[name="__RequestVerificationToken"]', form).val();
-
+   // alert('Me estan guardando de anualidad.js');
     form.validate();
 
     var aceptado = false;
@@ -215,9 +215,14 @@ function GuardarAnualidad(e,formulario='') {
     }
 
     var _lcombo = '';
-    if (typeof _ComboId !== 'undefined') {
+    if (typeof _ComboId !== 'undefined' && _ComboId!=null) {
         // variable is undefined
         _lcombo = _ComboId;
+    }
+
+    var tablename = 'resultadosDeVariables' + formulario;
+    if (formulario === '') {
+        tablename = 'tableVariablesAnualidad';
     }
 
     if (form.valid()) {
@@ -239,7 +244,7 @@ function GuardarAnualidad(e,formulario='') {
             SaldoActual: $('#SaldoActual').val(),
             Limite: $('#Limite').val(),
             Observacion: $('#Observacion' + formulario).val(),
-            VariablesEvaluadas: VariablesEvaluadasData('#resultadosDeVariables' + formulario),
+            VariablesEvaluadas: VariablesEvaluadasData('#' + tablename),
             Resultados: ObtenerArrayDeResultados(formulario),
             ResultadoAceptadoPorCliente: aceptado,
             Flujo: 2,
@@ -360,20 +365,23 @@ function ObtenerArrayDeResultados(formulario='') {
         return option.value;
     });
 
+   // console.log(options);
+
+    //console.log('values:' + values);
     //for (var i = 0; i < options.length; i++) {
     // se pone desde 1 porque el item 0 es "Seleccione un Resultado"
     for (var i = 1; i < options.length; i++) {
         if ($('#Resultados' + formulario).val() === values[i]) {
             resultadoArray.push({
                 ResultadoReversionId: values[i],
-                ResultadoReversionDescripcion: options[i],
+                ResultadoReversionDescripcion: $('#Resultados' + formulario+' :selected').text(),
                 ResultadoAceptado: true
             });
         }
         else {
             resultadoArray.push({
                 ResultadoReversionId: values[i],
-                ResultadoReversionDescripcion: options[i],
+                ResultadoReversionDescripcion: options[i].innerText,
                 ResultadoAceptado: false
             });
         }

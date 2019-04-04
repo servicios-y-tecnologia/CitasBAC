@@ -3048,22 +3048,26 @@ function ObtenerArrayDeResultados(combo) {
     debugger;
     resultadoArray = [];
     var options = $(combo + ' option');
+   // console.log( options);
     var values = $.map(options, function (option) {
         return option.value;
     });
 
-    for (var i = 0; i < options.length; i++) {
+  //  console.log('values:'+values);
+
+    for (var i = 1; i < options.length; i++) {
+
         if ($(combo).val() === values[i]) {
             resultadoArray.push({
                 ResultadoReversionId: values[i],
-                ResultadoReversionDescripcion: options[i],
+                ResultadoReversionDescripcion: $(combo+' :selected').text(),
                 ResultadoAceptado: true
             });
         }
         else {
             resultadoArray.push({
                 ResultadoReversionId: values[i],
-                ResultadoReversionDescripcion: options[i],
+                ResultadoReversionDescripcion: options[i].innerText,
                 ResultadoAceptado: false
             });
         }
@@ -3229,7 +3233,7 @@ function ObtenerResultadosAnualidad(e,formulario='') {
         data: JSON.stringify({ dataList: myData, clasificacion: $('#Clasificacion').val(), limite: $('#Limite').val(), id_cli: $('#txt_identificacion_n').val(), formulario: formulario }),
         contentType: 'application/json;',
         dataType: 'JSON',
-        traditional: true,
+       // traditional: true,
         async : false,
         success: function (data) {
             if (data['statusCode']) {
@@ -3274,19 +3278,48 @@ function VariablesEvaluadasData(table) {
     return resultArray;
 }
 
+
+function cbxResultadosReversionOnChange(e) {
+    e.stopPropagation();
+
+    resultadoArray = [];
+    var options = $('#selectBox option');
+    var values = $.map(options, function (option) {
+        return option.value;
+    });
+
+    for (var i = 0; i < options.length; i++) {
+        if ($('#Resultados').val() === values[i]) {
+            resultadoArray.push({
+                ItemDeReclamoId: values[i],
+                ItemDeReclamoNombre: options[i],
+                ResultadoAceptado: true
+            });
+        }
+        else {
+            resultadoArray.push({
+                ItemDeReclamoId: values[i],
+                ItemDeReclamoNombre: options[i],
+                ResultadoAceptado: false
+            });
+        }
+    }
+}
+
 function GuardarAnualidad(e,formulario='') {
     jQuery.ajaxSetup({ async: false });
 
     var nombrevariablesevaluadas = null;
     if (formulario === '') {
-        nombrevariablesevaluadas = "resultadosDeVariablesAnualidad";
+        //  nombrevariablesevaluadas = "resultadosDeVariablesAnualidad";
+        nombrevariablesevaluadas = 'tableVariablesAnualidad';
     }
     else {
         nombrevariablesevaluadas = 'resultadosDeVariables' + formulario;
     }
 
     if (VariablesEvaluadasData('#' + nombrevariablesevaluadas).length > 0) {
-        var path = '/Citas/GuardarAnualidad/';
+        var path = urljs + 'Citas/GuardarAnualidad/';
         var form = $('#anualidadForm');
         var token = $('input[name="__RequestVerificationToken"]', form).val();
 
@@ -3298,7 +3331,7 @@ function GuardarAnualidad(e,formulario='') {
         }
 
         var _lcombo = '';
-        if (typeof _ComboId !== 'undefined') {
+        if (typeof _ComboId !== 'undefined' && _ComboId !== null) {
             // variable is undefined
             _lcombo = _ComboId;
         }
@@ -3330,6 +3363,13 @@ function GuardarAnualidad(e,formulario='') {
         }
 
 
+        console.log(nombretablavariables);
+        try {
+            var arregloresultados = ObtenerArrayDeResultados('#' + nombreresultados);
+        } catch (e) {
+            console.log(e);
+        }
+       
         if (form.valid()) {
             var myData = {
                 __RequestVerificationToken: token,
@@ -3352,33 +3392,56 @@ function GuardarAnualidad(e,formulario='') {
                 Limite: $('#Limite').val(),
                 Observacion: $('#' + nombreobservacion).val(),
                 VariablesEvaluadas: VariablesEvaluadasData('#' + nombretablavariables),
-                Resultados: ObtenerArrayDeResultados('#' + nombreresultados),
+                Resultados: arregloresultados,
                 ResultadoAceptadoPorCliente: aceptado,
                 Flujo: 1,
                 CanalOAgencia: usu_sucursalId,
                 ComboId: _lcombo
             };
 
-          
-
-
-            var posting = $.post(path, myData);
-            posting.done(function (data) {
-                if (data.Accion && _lcombo === '') {
-                    bootbox.alert("Datos de Evaluación guardados correctamente!");
-                }
-                else if (!data.Accion) { 
-                    GenerarErrorAlerta(data.Mensaje, 'error');
+            $.ajax({
+                type: 'POST',
+                url: urljs + 'EvaluacionAnualidad/GuardarAnualidad/',
+                data: JSON.stringify(myData),
+                contentType: 'application/json;',
+                dataType: 'JSON',
+                async: false,
+                success: function (data) {
+                    debugger;
+                    if (data.Accion && _lcombo === '') {
+                        bootbox.alert(data.Mensaje);
+                    }
+                    else if (!data.Accion) {
+                        GenerarErrorAlerta(data.Mensaje, 'error');
+                        goAlert();
+                    }
+                },
+                error: function (data, status, xhr) {
+                    form.trigger('reset');
+                    GenerarErrorAlerta("Se produjo un error: " + data + " ", + status, 'error');
                     goAlert();
+                    return;
                 }
             });
 
-            posting.fail(function (data, status, xhr) {
-                GenerarErrorAlerta(status, 'error');
-                goAlert();
-            });
 
-            posting.always(function () { });
+            //var posting = $.post(path, myData);
+            //posting.done(function (data) {
+            //    if (data.Accion && _lcombo === '') {
+            //        bootbox.alert("Datos de Evaluación guardados correctamente!");
+            //    }
+            //    else if (!data.Accion) { 
+            //        GenerarErrorAlerta(data.Mensaje, 'error');
+            //        goAlert();
+            //    }
+            //});
+
+            //posting.fail(function (data, status, xhr) {
+            //    GenerarErrorAlerta(status, 'error');
+            //    goAlert();
+            //});
+
+            //posting.always(function () { });
         }
     }
     else {
@@ -3847,7 +3910,7 @@ function ObtenerResultadosReversion(e,formulario='') {
         data: JSON.stringify({ dataList: myData, clasificacion: $('#Clasificacion').val(), limite: $('#Limite').val(), id_cli: $('#txt_identificacion_n').val(), formulario: formulario }),
         contentType: 'application/json;',
         dataType: 'JSON',
-        traditional: true,
+       //traditional: true,
          async : false,
         success: function (data) {
             if (data['statusCode']) {
@@ -3926,7 +3989,7 @@ function GuardarReversion(e,formulario='') {
     }
 
     if (VariablesEvaluadasDataReversion('#' + nombrevariablesevaluadas).length > 0) {
-        var path = urljs + 'Citas/GuardarReversion/';
+        var path = urljs + 'EvaluacionReversion/GuardarReversion/';
         var form = $('#reversionForm');
         var token = $('input[name="__RequestVerificationToken"]', form).val();
 
@@ -3937,7 +4000,7 @@ function GuardarReversion(e,formulario='') {
         
 
         var _lcombo = '';
-        if (typeof _ComboId !== 'undefined') {
+        if (typeof _ComboId !== 'undefined' && _ComboId !== null) {
             // variable is undefined
             _lcombo = _ComboId;
         }
@@ -4048,30 +4111,65 @@ function GuardarReversion(e,formulario='') {
                 ComboId: _lcombo
             };
 
-            $.ajaxSetup({ async: false });  
-            var posting = $.post(path, myData);
-            posting.done(function (data) {
-                if (data.Accion && _lcombo === '') {
-                    bootbox.alert(data.Mensaje);
-                }
-                else if (!data.Accion) {
-                    if (data.statusCode === '400') {
-                        GenerarErrorAlerta(data.statusMessage, 'error');
-                        goAlert();
+        try {
+            $.ajax({
+                type: 'POST',
+                url: path,
+                data: JSON.stringify(myData),
+                contentType: 'application/json;',
+                dataType: 'JSON',
+                async: false,
+                success: function (data) {
+                    debugger;
+                    if (data.Accion && _lcombo === '') {
+                        bootbox.alert(data.Mensaje);
                     }
-                    else {
+                    else if (!data.Accion) {
                         GenerarErrorAlerta(data.Mensaje, 'error');
                         goAlert();
                     }
+
+                },
+                error: function (data, status, xhr) {
+                    debugger;
+                    console.log(data.responseText);
+                    GenerarErrorAlerta("Se produjo un error: " + data.responseText + " ", + status, 'error');
+                    //form.trigger('reset');
+                    goAlert();
+                    return;
                 }
             });
 
-            posting.fail(function (data, status, xhr) {
-                GenerarErrorAlerta(status, 'error');
-                goAlert();
-            });
+        } catch (e) {
+            console.log(e);
+            GenerarErrorAlerta("Se produjo un error: " + e, 'error');
+        }
 
-            posting.always(function () { });
+
+            //$.ajaxSetup({ async: false });  
+            //var posting = $.post(path, myData);
+            //posting.done(function (data) {
+            //    if (data.Accion && _lcombo === '') {
+            //        bootbox.alert(data.Mensaje);
+            //    }
+            //    else if (!data.Accion) {
+            //        if (data.statusCode === '400') {
+            //            GenerarErrorAlerta(data.statusMessage, 'error');
+            //            goAlert();
+            //        }
+            //        else {
+            //            GenerarErrorAlerta(data.Mensaje, 'error');
+            //            goAlert();
+            //        }
+            //    }
+            //});
+
+            //posting.fail(function (data, status, xhr) {
+            //    GenerarErrorAlerta(status, 'error');
+            //    goAlert();
+            //});
+
+            //posting.always(function () { });
        // }
     }
     else {
@@ -4247,18 +4345,19 @@ function VariablesEvaluadasDataTasa(table) {
     myArray.forEach(function (item, index) {
         resultArray.push(
             {
-                VariableCodigo: item[0],
-                ReclamoId: item[1],
-                ItemDeReclamoId: item[2],
-                CodeGroupVariable: item[3],
-                GroupVariable: item[4],
-                ItemDeReclamoNombre: item[5],
-                VariableDeItemId: item[6],
-                VariableNombre: item[7],
-                ValorActual: item[8],
-                CondicionLogica: item[9],
-                ValorAEvaluar: item[10],
-                EvaluacionCondicion: item[11]
+                CargoNumero: item[0],
+                VariableCodigo: item[1],
+                ReclamoId: item[2],
+                ItemDeReclamoId: item[3],
+                CodeGroupVariable: item[4],
+                GroupVariable: item[5],
+                ItemDeReclamoNombre: item[6],
+                VariableDeItemId: item[7],
+                VariableNombre: item[8],
+                ValorActual: item[9],
+                CondicionLogica: item[10],
+                ValorAEvaluar: item[11],
+                EvaluacionCondicion: item[12]
             }
         );
     });
@@ -4271,19 +4370,19 @@ function ObtenerResultadosTasa(e,formulario='') {
 
     var myData = null;
     if (formulario === '') {
-         myData = VariablesEvaluadasDataTasa('#resultadosDeVariables'+formulario);
+        myData = VariablesEvaluadasDataTasa('#resultadosDeVariablesTasas'+formulario);
     }
     else {
-        myData = VariablesEvaluadasDataTasa('#resultadosDeVariables'+formulario);
+        myData = VariablesEvaluadasDataTasa('#resultadosDeVariablesTasas'+formulario);
     }
 
     $.ajax({
         type: 'POST',
-        url: urljs + 'Cita/ObtenerResultadosTasa/',
+        url: urljs + 'Citas/ObtenerResultadosTasa/',
         data: JSON.stringify({ dataList: myData, clasificacion: $('#Clasificacion').val(), limite: $('#Limite').val(), id_cli: $('#txt_identificacion_n').val(),formulario:formulario }),
         contentType: 'application/json;',
         dataType: 'JSON',
-        traditional: true,
+        //traditional: true,
          async : false,
         success: function (data) {
             if (data['statusCode']) {
@@ -4317,8 +4416,8 @@ function GuardarTasa(e,formulario='') {
     }
 
     if (VariablesEvaluadasDataTasa('#' + nombrevariablesevaluadas).length > 0) {
-        var path = urljs + 'Citas/GuardarTasa/';
-        var form = $('#TasaForm' + formulario);
+        var path = urljs + 'EvaluacionTasa/GuardarTasa/';
+        var form = $('#tasaForm' + formulario);
         var token = $('input[name="__RequestVerificationToken"]', form).val();
 
         var aceptado = false;
@@ -4327,7 +4426,7 @@ function GuardarTasa(e,formulario='') {
         }
 
         var _lcombo = '';
-        if (typeof _ComboId !== 'undefined') {
+        if (typeof _ComboId !== 'undefined' && _ComboId !== null) {
             // variable is undefined
             _lcombo = _ComboId;
         }
@@ -4360,24 +4459,48 @@ function GuardarTasa(e,formulario='') {
                 ComboId: _lcombo
             };
 
-            var posting = $.post(path, myData);
-            posting.done(function (data) {
-                if (data.Accion && _lcombo === '') {
-                    bootbox.alert(data.Mensaje);
-                }
-                else if (!data.Accion) {
-                    GenerarErrorAlerta(data.Mensaje, 'error');
+            $.ajax({
+                type: 'POST',
+                url: path,
+                data: JSON.stringify(myData),
+                contentType: 'application/json;',
+                dataType: 'JSON',
+                async: false,
+                success: function (data) {
+                    //  debugger;
+                    if (data.Accion && _lcombo === '') {
+                        bootbox.alert(data.Mensaje);
+                    }
+                    else if (!data.Accion) {
+                        GenerarErrorAlerta(data.Mensaje, 'error');
+                        goAlert();
+                    }
+                },
+                error: function (data, status, xhr) {
+                    form.trigger('reset');
+                    GenerarErrorAlerta("Se produjo un error: " + data + " ", + status, 'error');
                     goAlert();
+                    return;
                 }
             });
+            //var posting = $.post(path, myData);
+            //posting.done(function (data) {
+            //    if (data.Accion && _lcombo === '') {
+            //        bootbox.alert(data.Mensaje);
+            //    }
+            //    else if (!data.Accion) {
+            //        GenerarErrorAlerta(data.Mensaje, 'error');
+            //        goAlert();
+            //    }
+            //});
 
-            posting.fail(function (data, status, xhr) {
-                form.trigger('reset');
-                GenerarErrorAlerta(status, 'error');
-                goAlert();
-            });
+            //posting.fail(function (data, status, xhr) {
+            //    form.trigger('reset');
+            //    GenerarErrorAlerta(status, 'error');
+            //    goAlert();
+            //});
 
-            posting.always(function () { });
+            //posting.always(function () { });
         }
     }
     else {

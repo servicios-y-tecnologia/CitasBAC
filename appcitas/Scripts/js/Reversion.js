@@ -1,4 +1,4 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     checkUserAccess('MTR030');
 });
 
@@ -20,6 +20,37 @@ function BuscarDatosDeCatalogosReversion(cuenta) {
         }
     });
 }
+
+
+
+function cbxResultadosReversionOnChange(e) {
+    e.stopPropagation();
+
+    resultadoArray = [];
+    var options = $('#selectBox option');
+    var values = $.map(options, function (option) {
+        return option.value;
+    });
+
+    for (var i = 0; i < options.length; i++) {
+        if ($('#Resultados').val() === values[i]) {
+            resultadoArray.push({
+                ItemDeReclamoId: values[i],
+                ItemDeReclamoNombre: options[i],
+                ResultadoAceptado: true
+            });
+        }
+        else {
+            resultadoArray.push({
+                ItemDeReclamoId: values[i],
+                ItemDeReclamoNombre: options[i],
+                ResultadoAceptado: false
+            });
+        }
+    }
+}
+
+
 
 function BuscarPorTarjetaReversion(e) {
     e.stopPropagation();
@@ -431,6 +462,8 @@ function OntenerArrayDeResultadosReversion(formulario='') {
         return option.value;
     });
 
+    debugger;
+    console.log(options);
    
     //for (var i = 0; i < options.length; i++) {
     // se pone desde 1 porque el item 0 es "Seleccione un Resultado"
@@ -439,14 +472,14 @@ function OntenerArrayDeResultadosReversion(formulario='') {
         if ($('#Resultados' + formulario).val() === values[i]) {
             resultadoArray.push({
                 ResultadoReversionId: values[i],
-                ResultadoReversionDescripcion: options[i],
+                ResultadoReversionDescripcion: $('#Resultados' + formulario + ' :selected').text(),
                 ResultadoReversionAceptada: true
             });
         }
         else {
             resultadoArray.push({
                 ResultadoReversionId: values[i],
-                ResultadoReversionDescripcion: options[i],
+                ResultadoReversionDescripcion: options[i].innerText,
                 ResultadoReversionAceptada: false
             });
         }

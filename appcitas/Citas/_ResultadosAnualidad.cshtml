@@ -1,0 +1,38 @@
+﻿@model IEnumerable<appcitas.Dtos.AnualidadResultadoObtenidoDto>
+
+@if (ViewBag.Buro)
+{
+    <div class="alert alert-danger">
+        <strong>Este cliente presenta estado de Buro Rojo, referir al departamento de Recuperacion de Mora/Cobros</strong>
+    </div>
+}
+else
+{
+    if (Model != null && Model.Count() > 0)
+    {
+        <div class="form-group">
+            <label for="cbxResultados" class="control-label">Resultados Obtenidos</label>
+            @Html.DropDownList("cbxResultadosAnualidad", new SelectList(Model, "ItemDeReclamoId", "ItemDeReclamoDescripcion"), "seleccione un resultado", new { @class = "form-control" })
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <strong>Este cliente no aplica a ningun beneficio</strong>
+        </div>
+    }
+}
+
+        <div class="form-group">
+            @{
+                if (ViewBag.EsComboAnualidad)
+                {
+                    <label for="resultadoAceptadoAnualidad" class="control-label">Resultado Aceptado por el Cliente? <input type="checkbox" onchange="AceptadoComboChange(event)" class="checkbox" id="resultadoAceptadoAnualidad" required /></label>
+                }
+                else
+                {
+                    <label for="resultadoAceptadoAnualidad" class="control-label">Resultado Aceptado por el Cliente? <input type="checkbox" onchange="AceptadoAnualidadChange(event)" class="checkbox" id="resultadoAceptadoAnualidad" required /></label>
+                }
+            }
+        </div>
+

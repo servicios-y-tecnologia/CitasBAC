@@ -41,9 +41,10 @@ $(document).ready(function () {
 });
 
 
-    var primero = null;
-    var segundo = null;
-    var general = null;
+var primero = null;
+var segundo = null;
+var general = null;
+
 function OnTipoCombo_IChange(event) {
     event.stopPropagation();
     var seleccionado = $('#ComboOpId :selected').text();
@@ -194,7 +195,8 @@ function GuardarCombo(e) {
 
         try {
            // console.log($("#ComboId").val());
-            if ($("#ComboId").val() === "00000000-0000-0000-0000-000000000000") {
+            //if ($("#ComboId").val() === "00000000-0000-0000-0000-000000000000")
+            {
                 $.ajax({
                     type: 'POST',
                     url: urljs + 'EvaluacionCombo/GuardarCombo/',
@@ -262,9 +264,9 @@ function GuardarCombo(e) {
                 validaprocesocombo();
 
             }
-            else {
-                bootbox.alert("El combo ya se ha generado, intente generando uno nuevo!");
-            }
+            //else {
+            //    bootbox.alert("El combo ya se ha generado, intente generando uno nuevo!");
+            //}
 
         }
         catch (e) {
@@ -410,9 +412,6 @@ function AgregarFilasATablaVariablesCombo(ArrayData, table) {
 
     $(table).DataTable().order([1, 'asc']).draw();
 }
-
-
-
 
 
 

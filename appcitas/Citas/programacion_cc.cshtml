@@ -3,8 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.hoy = DateTime.Today;
     ViewBag.hoyFormat = String.Format("{0:dd-MM-yyyy}", ViewBag.hoy);
-    ViewBag.usu_sucursalId = "prueba de sucursal";
-
 }
 
 <style type="text/css">
@@ -192,13 +190,6 @@
         /*bottom: -10px;*/
         left: 20%;
     }
-
-    .miPanel {
-        overflow-x: auto;
-        border-top: 2px solid rgb(230,230,230);
-        height: 400px;
-        max-height: 600px;
-    }
 </style>
 
 <div class="modal fade confirm_box_suscursal" id="confirm_box_suscursal" role="dialog" aria-labelledby="modal_confirm_box" aria-hidden="true" data-keyboard="false" data-backdrop="static">
@@ -237,8 +228,7 @@
     <div class="box-body">
         <div class="row nomargin">
             <div class="col-xs-12 text-right">
-                <p style="font-weight: bold;" class="nomargin">@ViewBag.hoyFormat</p>
-                <label for="idsucur" id="idsucur" />
+                <p style="font-weight: bold;">@ViewBag.hoyFormat</p>
             </div>
         </div>
         <div class="nav-tabs-custom tab-danger">
@@ -247,6 +237,7 @@
                 <input id="Marca" type="text" class="hidden" />
                 <input id="MarcaId" type="text" class="hidden" />
                 <input id="SaldoActual" type="text" class="hidden" />
+                @*<input id="txt_cuenta_n" type="text" class="hidden" />*@
                 <input id="Limite" type="text" class="hidden" />
             </div>
             <!-- Nav tabs -->
@@ -257,14 +248,12 @@
                 <li role="presentation" class="hide"><a href="#resultado_busqueda_encontrado" aria-controls="resultado_busqueda_encontrado" role="tab" data-toggle="tab">Resultado de busqueda</a></li>
                 <li role="presentation" class="hide"><a href="#ver_cita" aria-controls="ver_cita" role="tab" data-toggle="tab">Vista previa Cita</a></li>
                 <li role="presentation" class="hide"><a href="#nueva_cita" aria-controls="nueva_cita" role="tab" data-toggle="tab">Datos generales</a></li>
-                <li role="presentation" class="hide"><a href="#nueva_cita_calendario" aria-controls="nueva_cita_calendario" role="tab" data-toggle="tab">Asignacion de cita</a></li>
-                <li role="presentation" class="hide"><a href="#nueva_cita_razon" aria-controls="nueva_cita_razon" role="tab" data-toggle="tab">Razon de cancelacion</a></li>
-                <li role="presentation" class="hide"><a href="#vista_previa_cita" aria-controls="vista_previa_cita" role="tab" data-toggle="tab">Confirmacion cita</a></li>
+                <li role="presentation" class="hide"><a href="#nueva_cita_calendario" aria-controls="nueva_cita_calendario" role="tab" data-toggle="tab">Asignación de cita</a></li>
+                <li role="presentation" class="hide"><a href="#nueva_cita_razon" aria-controls="nueva_cita_razon" role="tab" data-toggle="tab">Razon de cancelación</a></li>
+                <li role="presentation" class="hide"><a href="#vista_previa_cita" aria-controls="vista_previa_cita" role="tab" data-toggle="tab">Confirmación cita</a></li>
                 <li role="presentation" class="hide"><a href="#motorDeRetencionesAnualidad" aria-controls="motorDeRetencionesAnualidad" role="tab" data-toggle="tab">Motor de Retenciones</a></li>
                 <li role="presentation" class="hide"><a href="#motorDeRetencionesReversion" aria-controls="motorDeRetencionesReversion" role="tab" data-toggle="tab">Motor de Retenciones</a></li>
                 <li role="presentation" class="hide"><a href="#motorDeRetencionesTasas" aria-controls="motorDeRetencionesTasas" role="tab" data-toggle="tab">Motor de Retenciones</a></li>
-                <li role="presentation" class="hide"><a href="#motorDeRetencionesTasas" aria-controls="motorDeRetencionesTasas" role="tab" data-toggle="tab">Motor de Retenciones</a></li>
-                <li role="presentation" class="hide"><a href="#motorCombo" aria-controls="motorCombo" role="tab" data-toggle="tab">Motor de Combos</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content bac-table-panelx">
@@ -307,7 +296,7 @@
 
                 <div role="tabpanel" class="tab-pane fade" id="resultado_busqueda_encontrado">
                     <div class="row bac-container-table-panel">
-                        <div class="col-xs-12 text-center" style="padding-top: 15px;">
+                        <div class="col-xs-12 text-center" style="padding-top: 15px;" ">
                             <span>Coincidencias para </span>
                             <b>'<span id="texto_busqueda_encontrado"></span>'</b>
                         </div>
@@ -400,34 +389,6 @@
                             </div>
                         </div>
                         <div class="col-xs-6">
-                            <div class="form-group input-group-sm" id="div_cel">
-                                <label for="txt_cuenta">No. Cuenta</label>
-                                <input type="text" class="form-control nombre limpiar input requerido" id="txt_cuenta" name="txt_cuenta" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row no-margin">
-                        <div class="col-xs-6">
-                            <div class="form-group input-group-sm" id="div_tarjeta">
-                                <label for="txt_marca">Marca</label>
-                                <input type="text" class="form-control nombre limpiar input cuenta requerido" id="txt_marca" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="form-group input-group-sm" id="div_tarjeta">
-                                <label for="txt_producto">Producto</label>
-                                <input type="text" class="form-control nombre limpiar input cuenta requerido" id="txt_producto" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row no-margin">
-                        <div class="col-xs-6">
-                            <div class="form-group input-group-sm" id="div_tarjeta">
-                                <label for="txt_familia">Familia</label>
-                                <input type="text" class="form-control nombre limpiar input cuenta requerido" id="txt_familia" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
                             <div class="form-group input-group-sm" id="div_segmento">
                                 <label for="txt_segmento">Segmento</label>
                                 <input type="text" class="form-control nombre limpiar input requerido" id="txt_segmento" name="txt_segmento" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
@@ -450,7 +411,7 @@
                     </div>
                     <div class="row no-margin">
                         <div class="col-xs-6">
-                            <div class="form-group input-group-sm" id="div_fecha">
+                            <div class="form-group input-group-sm" id="div_fech">
                                 <label for="txt_fecha">Fecha</label>
                                 <input type="text" class="form-control nombre limpiar input requerido" id="txt_fecha" name="txt_fecha" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
                             </div>
@@ -537,7 +498,7 @@
                     </div>
                     <div class="row no-margin">
                         <div class="col-xs-6">
-                            <div class="form-group input-group-sm" id="div_tel_oficina">
+                            <div class="form-group input-group-sm">
                                 <label for="txt_tel_oficina_n">Tel. Oficina</label>
                                 <input type="text" class="form-control telefono limpiar input" id="txt_tel_oficina_n" name="txt_tel_oficina_n" placeholder="9999-9999" maxlength="50" autocomplete="off">
                                 <div class="validation-error"><p></p></div>
@@ -551,41 +512,15 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row no-margin">
-                        <div class="col-xs-6">
-                            <div class="form-group input-group-sm" id="div_marca">
-                                <label for="txt_marca_n">Marca</label>
-                                <input type="text" class="form-control limpiar input requerido" data-requerido="true" data-message="Es un campo requerido!" id="txt_marca_n" placeholder="N/D" maxlength="50" autocomplete="off" disabled="">
-                                <div class="validation-error-no"><p></p></div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="form-group input-group-sm" id="div_producto">
-                                <label for="txt_producto_n">Producto</label>
-                                <input type="text" class="form-control nombre limpiar input requerido" data-requerido="true" data-message="Es un campo requerido!" id="txt_producto_n" placeholder="N/D" maxlength="50" autocomplete="off" disabled="">
-                                <div class="validation-error-no"><p></p></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row no-margin">
-                        <div class="col-xs-6">
-                            <div class="form-group input-group-sm" id="div_familia">
-                                <label for="txt_familia_n">Familia</label>
-                                <input type="text" class="form-control nombre limpiar input requerido" data-requerido="true" data-message="Es un campo requerido!" id="txt_familia_n" name="txt_familia_n" placeholder="N/D" maxlength="50" autocomplete="off" disabled="">
-                                <div class="validation-error-no"><p></p></div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
+                        <div class="col-xs-6 ">
                             <div class="form-group input-group-sm" id="div_segmento">
                                 <label for="cod_segmento">Segmento</label>
                                 <select id="cod_segmento" class="requerido" data-requerido="true" data-message="Es un campo requerido!" disabled=""></select>
                                 <div class="validation-error"><p></p></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row no-margin">
-                        <div class="col-xs-6">
+                        <div class="col-xs-6 ">
                             <div class="form-group input-group-sm" id="div_sucursal">
                                 <label for="cod_sucursal">Centro de fidelizacion</label>
                                 <select id="cod_sucursal" class="requerido" data-requerido="true" data-message="Es un campo requerido!">
@@ -594,23 +529,14 @@
                                 <div class="validation-error"><p></p></div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row no-margin">
                         <div class="col-xs-6">
                             <div class="form-group input-group-sm" id="div_tramite">
                                 <label for="cod_tramite">Tramite</label>
                                 <select id="cod_tramite" class="requerido" data-requerido="true" data-message="Es un campo requerido!"></select>
                                 <div class="validation-error"><p></p></div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row nomargin">
-                        <div class="col-sm-8 col-sm-offset-2">
-                            <p class="text-center mensaje-cc hide" id="mensaje_cc">
-                                Cita fue creada desde programacion restringida, al no ingresar el numero de cuenta, la siguiente informacion
-                                no se pudo llenar en este formulario.<br>
-                                <b>Segmento: </b><span id="segmento_cc"></span><br>
-                                <b>Centro de fidelizacion: </b><span id="sucursal_cc"></span>
-                            </p>
                         </div>
                     </div>
 
@@ -638,7 +564,7 @@
 
                 <div role="tabpanel" class="tab-pane fade" id="nueva_cita_razon">
                     <div class="row no-margin">
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 ">
                             <div class="form-group input-group-sm" id="div_tipo_razon">
                                 <label for="cod_tipo_razon">Tipo de Razon</label>
                                 <select id="cod_tipo_razon" class="AddSelects requerido" data-requerido="true" data-message="Es un campo requerido!"></select>
@@ -659,7 +585,7 @@
                                 <div class="validation-error"><p></p></div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 ">
                             <div class="form-group input-group-sm" id="div_razon">
                                 <label>&nbsp;</label>
                                 <button class="btn btn-md btn-success btn-fullwidth" id="guardarRazon">
@@ -710,6 +636,8 @@
                     </div>
                 </div>
 
+                <input class="hidden" id="Clasificacion" />
+
                 <div role="tabpanel" class="tab-pane fade" id="nueva_cita_calendario">
                     <div class="row text-center">
                         <div class="col-xs-12" style="padding: 15px;" id="fecha_cita_alert">
@@ -718,12 +646,12 @@
                     <div class="row nomargin">
                         <div id="div_cubiculos"></div>
                     </div>
-                    <div class="row nomargin" id="recargarcalendario">
+                    <div class="row nomargin">
                         <div class="col-xs-12">
                             <section id="alertasCalendario">
                                 <div class="col-md-12">
                                     <div data-alerts="alerts" data-titles="{&quot;danger&quot;: &quot;&lt;em&gt;Cita no puede ser programada!&lt;/em&gt;&quot;}" data-ids="errorCalendario" data-fade="5000"></div>
-                                    <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successCalendario" data-fade="5000" id="recalendar"></div>
+                                    <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successCalendario" data-fade="5000"></div>
                                 </div>
                             </section>
                             <div id="calendar" class="calendar calendar-container"></div>
@@ -743,7 +671,7 @@
                             </button>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-8 text-right">
-                            <button class="btn btn-md btn-warning" onClick="RegresarPantallaAnterior(event)" title='Asignar razon de cancelacion' data-toggle='tooltip' data-placement='top'>
+                            <button class="btn btn-md btn-warning" onClick='activarTab("nueva_cita_razon")' onClick="GuardarCita()" title='Asignar razon de cancelacion' data-toggle='tooltip' data-placement='top'>
                                 <i class="fa fa-arrow-left"> </i>
                                 <span> Anterior</span>
                             </button>
@@ -810,12 +738,6 @@
                     </div>
                     <div class="row no-margin">
                         <div class="col-xs-6">
-                            <div class="form-group input-group-sm" id="div_cel">
-                                <label for="txt_cuenta_vp">No. Cuenta</label>
-                                <input type="text" class="form-control nombre limpiar input requerido" id="txt_cuenta_vp" name="txt_cuenta" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
                             <div class="form-group input-group-sm" id="div_tarjeta">
                                 <label for="txt_tarjeta_vp">No. Tarjeta</label>
                                 <input type="text" class="form-control nombre limpiar input cuenta requerido" id="txt_tarjeta_vp" name="txt_tarjeta" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
@@ -878,9 +800,6 @@
                             <button type="button" class="btn btn-md btn-default" id="btn_actualizar_tabla" title='Actualizar informacion' data-toggle='tooltip' data-placement='left'>
                                 <i class="fa fa-refresh" aria-hidden="true"></i>
                             </button>
-                            <button type="button" class="btn btn-md btn-default" id="btn_reasing" title='Reasignar Sucursal' data-toggle='tooltip' data-placement='left'>
-                                <i class="fa fa-repeat" aria-hidden="true"></i>
-                            </button>
                         </div>
                     </div>
                     <div class="row nomargin" style="overflow-x:auto;">
@@ -900,20 +819,15 @@
                     </div>
                 </div>
 
-                <input class="hidden" id="Clasificacion" />
-
                 <div class="tab-pane fade" role="tabpanel" id="motorDeRetencionesAnualidad">
                     <div class="row">
                         <div class="col-md-8 box-body bac-table-panel">
                             <table id="tableVariablesAnualidad" class="list-table table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Cargo #</th>
                                         <th class="hidden">Codigo</th>
                                         <th class="hidden">ReclamoId</th>
                                         <th class="hidden">ItemId</th>
-                                        <th>Codigo grupo</th>
-                                        <th>Grupo Variable</th>
                                         <th>Item</th>
                                         <th class="hidden">VariableDeItemId</th>
                                         <th>Variable</th>
@@ -933,12 +847,9 @@
                                 <div class="form-group input-group-sm" id="div_cbxTipoAnualidad">
                                     <label for="cbxTipoAnualidad">Tipo de Anualidad</label>
                                     <select id="cbxTipoAnualidad" class="requerido" data-requerido="true" data-message="Es un campo requerido!">
-                                        @if (ViewBag.TipoDeAnualidades != null)
+                                        @foreach (var item in ViewBag.TipoDeAnualidades)
                                         {
-                                            foreach (var item in ViewBag.TipoDeAnualidades)
-                                            {
                                             <option value="@item.ConfigItemID">@item.ConfigItemAbreviatura</option>
-                                            }
                                         }
                                     </select>
                                     <div class="validation-error"><p></p></div>
@@ -1029,11 +940,8 @@
                                                 <div class="col-md-11">
                                                     <div class="form-group">
                                                         <label for="TipoReversionId1" class="control-label">Tipo de Reversion</label>
-                                                        @if (ViewBag.TiposDeReversion != null)
-                                                        {
-                                                            @Html.DropDownList("TipoReversionId1", new SelectList(ViewBag.TiposDeReversion, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un tipo de reversion", new { @class = "form-control", @required = "required", @onchange = "OnTipoReversion_1Change(event)" })
-                                                            @Html.ValidationMessage("TipoReversionId1", "", new { @class = "text-danger" })
-                                                        }
+                                                        @Html.DropDownList("TipoReversionId1", new SelectList(ViewBag.TiposDeReversion, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un tipo de reversion", new { @class = "form-control", @required = "required" })
+                                                        @Html.ValidationMessage("TipoReversionId1", "", new { @class = "text-danger" })
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="Monto1" class="control-label">Monto</label>
@@ -1061,8 +969,7 @@
                                                 <div class="col-md-11">
                                                     <div class="form-group">
                                                         <label for="TipoReversionId2" class="control-label">Tipo de Reversion</label>
-                                                        <input class="hidden" id="TipoReversionId2" />
-                                                        <input class="form-control" readonly id="TipoReversion2" />
+                                                        @Html.DropDownList("TipoReversionId2", new SelectList(ViewBag.TiposDeReversion, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un tipo de anualidad", new { @class = "form-control", @required = "required" })
                                                         @Html.ValidationMessage("TipoReversionId2", "", new { @class = "text-danger" })
                                                     </div>
                                                     <div class="form-group">
@@ -1091,8 +998,7 @@
                                                 <div class="col-md-11">
                                                     <div class="form-group">
                                                         <label for="TipoReversionId3" class="control-label">Tipo de Reversion</label>
-                                                        <input class="hidden" id="TipoReversionId3" />
-                                                        <input class="form-control" readonly id="TipoReversion3" />
+                                                        @Html.DropDownList("TipoReversionId3", new SelectList(ViewBag.TiposDeReversion, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un tipo de anualidad", new { @class = "form-control", @required = "required" })
                                                         @Html.ValidationMessage("TipoReversionId3", "", new { @class = "text-danger" })
                                                     </div>
                                                     <div class="form-group">
@@ -1124,8 +1030,7 @@
                                                 <div class="col-md-11">
                                                     <div class="form-group">
                                                         <label for="TipoReversionId4" class="control-label">Tipo de Reversion</label>
-                                                        <input class="hidden" id="TipoReversionId4" />
-                                                        <input class="form-control" readonly id="TipoReversion4" />
+                                                        @Html.DropDownList("TipoReversionId4", new SelectList(ViewBag.TiposDeReversion, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un tipo de anualidad", new { @class = "form-control", @required = "required" })
                                                         @Html.ValidationMessage("TipoReversionId4", "", new { @class = "text-danger" })
                                                     </div>
                                                     <div class="form-group">
@@ -1154,8 +1059,7 @@
                                                 <div class="col-md-11">
                                                     <div class="form-group">
                                                         <label for="TipoReversionId5" class="control-label">Tipo de Reversion</label>
-                                                        <input class="hidden" id="TipoReversionId5" />
-                                                        <input class="form-control" readonly id="TipoReversion5" />
+                                                        @Html.DropDownList("TipoReversionId5", new SelectList(ViewBag.TiposDeReversion, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un tipo de anualidad", new { @class = "form-control", @required = "required" })
                                                         @Html.ValidationMessage("TipoReversionId5", "", new { @class = "text-danger" })
                                                     </div>
                                                     <div class="form-group">
@@ -1184,8 +1088,7 @@
                                                 <div class="col-md-11">
                                                     <div class="form-group">
                                                         <label for="TipoReversionId6" class="control-label">Tipo de Reversion</label>
-                                                        <input class="hidden" id="TipoReversionId6" />
-                                                        <input class="form-control" readonly id="TipoReversion6" />
+                                                        @Html.DropDownList("TipoReversionId6", new SelectList(ViewBag.TiposDeReversion, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un tipo de anualidad", new { @class = "form-control", @required = "required" })
                                                         @Html.ValidationMessage("TipoReversionId6", "", new { @class = "text-danger" })
                                                     </div>
                                                     <div class="form-group">
@@ -1235,8 +1138,6 @@
                                                 <th class="hidden">Codigo</th>
                                                 <th class="hidden">ReclamoId</th>
                                                 <th class="hidden">ItemId</th>
-                                                <th>Codigo grupo</th>
-                                                <th>Grupo Variable</th>
                                                 <th>Item</th>
                                                 <th class="hidden">VariableDeItemId</th>
                                                 <th>Variable</th>
@@ -1329,7 +1230,7 @@
 
                             <hr />
 
-                            <button type="button" class="btn btn-primary btn-block btn-block" onclick="EvaluarVariablesTasa(event)">Evaluar Variables</button>
+                            <button type="button" class="btn btn-primary btn-block" onclick="EvaluarVariablesTasa(event)">Evaluar Variables</button>
 
                             <br />
                             <hr />
@@ -1358,12 +1259,9 @@
                                     <table id="resultadosDeVariablesTasas" class="list-table table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Cargo #</th>
                                                 <th class="hidden">Codigo</th>
                                                 <th class="hidden">ReclamoId</th>
                                                 <th class="hidden">ItemId</th>
-                                                <th>Codigo grupo</th>
-                                                <th>Grupo Variable</th>
                                                 <th>Item</th>
                                                 <th class="hidden">VariableDeItemId</th>
                                                 <th>Variable</th>
@@ -1415,22 +1313,7 @@
                     </div>
                 </div>
 
-
-                <div id="motorCombo" class="tab-pane fade">
-                    @{
-                        appcitas.Context.AppcitasContext _context;
-                        _context = new appcitas.Context.AppcitasContext();
-
-                        List<appcitas.Models.ConfigItem> cargos = _context.ItemsDeConfiguracion.Where(x => x.ConfigID == "TANLD").ToList();
-                        cargos.AddRange(_context.ItemsDeConfiguracion.Where(x => x.ConfigID == "TRVSN").ToList());
-                        ViewBag.Cargos = cargos;
-                        ViewBag.Combos = _context.ItemsDeConfiguracion.Where(x => x.ConfigID == "CMBS");
-                    }
-                    @{ Html.RenderPartial("~/Views/EvaluacionCombo/Index.cshtml", new appcitas.Dtos.ComboDto { ComboId = new Guid("00000000-0000-0000-0000-000000000000"), FechaPrimerCargo = DateTime.Now , _nolayout = true}); }
-                 @*   @Html.Action("Index","EvaluacionCombo")*@
-                </div>
-
-               
+                <input id="Familia" class="hidden" />
             </div>
         </div>
     </div>
@@ -1531,6 +1414,6 @@
 
 <script type="text/javascript">
     var hoy = moment(new Date('@ViewBag.hoy'));
-    var hoy2semanas = moment(new Date(hoy)).add(14, 'days');
+    var hoy2semanas = moment(new Date(hoy)).add(14,'days');
 </script>
-@Scripts.Render("~/Scripts/js/citas.js")
+@Scripts.Render("~/Scripts/js/citas_cc.js")
